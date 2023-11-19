@@ -1,6 +1,6 @@
 <?php
 
-include "./content/index.php";
+include "content/index.php";
 
 echo "</br>";
 
