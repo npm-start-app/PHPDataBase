@@ -4,6 +4,7 @@ include "routes.php";
 $url = $_SERVER["REQUEST_URI"];
 
 if ($url == $_HOME) {
+    phpinfo();
     include "content/index.php";
 } else {
     $_errorCode = 404;
