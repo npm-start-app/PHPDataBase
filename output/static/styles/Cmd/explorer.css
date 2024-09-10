@@ -1,0 +1,59 @@
+.EPh {
+    font-size: 20px;
+}
+
+.EPm {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+}
+
+.file {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.file:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.file i {
+    font-size: 20px;
+}
+
+.Ftext {
+    width: 90%;
+}
+
+.path {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    grid-column-start: 1;
+    grid-column-end: 7;
+}
+
+._Spath {
+    padding: 5px 10px;
+    font-size: 15px;
+}
+
+._Spath:hover {
+    background-color: rgba(0, 0, 0, 0.204);
+    cursor: pointer;
+}
+
+._Spath_slash {
+    padding: 5px 10px;
+    font-size: 15px;
+}
