@@ -49,7 +49,7 @@ class Cmd
 
     public static function _help()
     {
-        $jsonString = file_get_contents('./cmdCommands.json');
+        $jsonString = file_get_contents(__DIR__ . '/../cmdCommands.json');
 
         $data = json_decode($jsonString, true);
 
