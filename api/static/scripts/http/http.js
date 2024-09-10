@@ -1,7 +1,7 @@
 
 class http {
     static getDomain() {
-        return 'http://localhost:5555/'
+        return window.location.href
     }
 
     static getDriveDomain() {
