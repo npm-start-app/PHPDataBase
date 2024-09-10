@@ -1,3 +1,3 @@
 <?php
 
-include_once (__DIR__ . '/CustomErrorHandlers/CustomErrorhandler');
+include_once ($_dir_ . '/CustomErrorHandlers/CustomErrorhandler');
