@@ -5,7 +5,7 @@
         }
     },
     "routes": [
-        { "handle": "filesystem" },
+        { "src": "/static/(.*)", "dest": "/api/static/$1"},
         { "src": "/.*", "dest": "/api/index.php" }
     ]
 }
