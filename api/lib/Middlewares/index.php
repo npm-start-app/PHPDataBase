@@ -1,3 +1,3 @@
 <?php
 
-include_once (__DIR__ . "/$libName/Middlewares/ParamsChecker.php");
+include_once ($_dir_ . "/$libName/Middlewares/ParamsChecker.php");
