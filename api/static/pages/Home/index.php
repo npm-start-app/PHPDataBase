@@ -67,7 +67,7 @@
                         <p>Nons8ns</p>
                         <p>Web Developer</p>
                     </span></div>
-                <div class="tAbout">Programs' structure is an art. Art for those, who love programming and computers. I hope that one day I will become an artist of this art.</div>
+                <div class="tAbout">Programs' structure is an art. Art for those, who love programming and computers. I hope that one day I will become a master of this art.</div>
                 <a href="https://nextjs-boilerplate-three-blond-44.vercel.app" class="aAbout">See my About website</a>
             </div>
             <img src="<?php echo HtmlController::domain() ?>static/images/about_2.svg" />
