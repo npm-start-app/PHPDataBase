@@ -18,7 +18,7 @@ class HtmlController
         $styles = static::styles() . "Home/";
         $scripts = static::scripts() . "Home/";
 
-        include("./static/pages/Home/index.php");
+        include(__DIR__ . "/../static/pages/Home/index.php");
 
         return;
     }
@@ -26,7 +26,7 @@ class HtmlController
         $styles = static::styles() . "Preauth/";
         $scripts = static::scripts() . "Preauth/";
 
-        include("./static/pages/Preauth/index.php");
+        include(__DIR__ . "/../static/pages/Preauth/index.php");
 
         return;
     }
@@ -47,7 +47,7 @@ class HtmlController
             }
         }
 
-        include("./static/pages/Auth/index.php");
+        include(__DIR__ . "/../static/pages/Auth/index.php");
 
         return $result;
     }
@@ -56,7 +56,7 @@ class HtmlController
         $styles = static::styles() . "Account/";
         $scripts = static::scripts() . "Account/";
 
-        include("./static/pages/Account/index.php");
+        include(__DIR__ . "/../static/pages/Account/index.php");
 
         return;
     }
@@ -65,7 +65,7 @@ class HtmlController
         $styles = static::styles() . "Cmd/";
         $scripts = static::scripts() . "Cmd/";
 
-        include("./static/pages/Cmd/index.php");
+        include(__DIR__ . "/../static/pages/Cmd/index.php");
 
         return;
     }
