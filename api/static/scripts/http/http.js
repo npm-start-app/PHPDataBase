@@ -1,7 +1,7 @@
 
 class http {
     static getDomain() {
-        return window.location.href
+        return window.location.origin
     }
 
     static getDriveDomain() {
