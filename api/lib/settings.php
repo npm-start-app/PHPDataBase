@@ -90,7 +90,7 @@ class Settings {
 
     // |-- Extra Functions --|
 
-    public static function getFullDomain() { return isset($_SERVER['HTTPS']) ? 'https' : 'http' . "://" . $_SERVER["HTTP_HOST"]; }
+    public static function getFullDomain() { return 'https' . "://" . $_SERVER["HTTP_HOST"]; }
     public static function isApiModeAllowed() {
         foreach (Settings::apiModeAllowForUrls as $url) {
             if (str_contains(Settings::getFullDomain() . $_SERVER["REQUEST_URI"], Settings::getFullDomain() . $url)) {
