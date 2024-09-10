@@ -11,7 +11,9 @@ class CustomErrorHandler
             Route::response(
                 [
                     'status' => false,
-                    'message' => "Server error."
+                    'message' => $errstr,
+                    'error' => $errline,
+                    'file' => $errfile
                 ],
                 500
             );
@@ -26,7 +28,7 @@ class CustomErrorHandler
             Route::response(
                 [
                     'status' => false,
-                    'message' => "Server error."
+                    'message' => $error['message']
                 ],
                 500
             );
