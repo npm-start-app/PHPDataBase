@@ -1,3 +1,3 @@
 <?php
 
-include_once (__DIR__ . "/Middlewares/authChecker.php");
+include_once ($_dir_ . "/Middlewares/authChecker.php");
