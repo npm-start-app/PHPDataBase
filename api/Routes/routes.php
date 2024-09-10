@@ -6,6 +6,14 @@ use WBlib\ParamsChecker;
 use WBlib\Route;
 use WBlib\Settings;
 
+if (array_key_exists('1', explode('/', $_SERVER['REQUEST_URI']))) {
+    if (explode('/', $_SERVER['REQUEST_URI'])[1] === 'static') {
+        include_once (__DIR__ . '/..' . $_SERVER['REQUEST_URI']);
+
+        exit();
+    } 
+}
+
 // 'WBlib\Route::useRedis' -- Open Redis Connection
 
 class Routes
