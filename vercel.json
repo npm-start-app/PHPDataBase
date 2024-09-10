@@ -5,7 +5,7 @@
         }
     },
     "rewrites": [
-        { "source": "/static/(.*)", "destination": "/api/static/$1" },
-        { "source": "/(.*)", "destination": "/api/index.php" }
+        { "source": "/(.*)", "destination": "/api/index.php" },
+        { "source": "/static/(.*)", "destination": "/api/static/$1" }
     ]
 }
