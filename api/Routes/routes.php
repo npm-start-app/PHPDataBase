@@ -8,6 +8,7 @@ use WBlib\Settings;
 
 if (array_key_exists('1', explode('/', $_SERVER['REQUEST_URI']))) {
     if (explode('/', $_SERVER['REQUEST_URI'])[1] === 'static') {
+        header('Content-Type: text/javascript');
         echo file_get_contents(__DIR__ . '/..' . $_SERVER['REQUEST_URI']);
 
         exit();
