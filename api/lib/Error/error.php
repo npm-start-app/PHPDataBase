@@ -141,7 +141,7 @@ class Error
         http_response_code($code);
 
         if (!Settings::isApiModeAllowed() and $html !== false) {
-            include($html);
+            include(__DIR__ . "/../.." . $html);
 
             die();
         }
