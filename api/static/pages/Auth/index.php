@@ -1,9 +1,9 @@
 <?php try {
-    HtmlController::global_styles;
-    HtmlController::http;
-    HtmlController::domain;
-    HtmlController::auther;
-    HtmlController::localSettings;
+    HtmlController::global_styles();
+    HtmlController::http();
+    HtmlController::domain();
+    HtmlController::auther();
+    HtmlController::localSettings();
     if (!isset($scripts)) {
         die();
     }
@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="<?php echo HtmlController::localSettings ?>"></script>
-    <script src="<?php echo HtmlController::http ?>"></script>
-    <?php echo HtmlController::global_styles ?>
+    <script src="<?php echo HtmlController::localSettings() ?>"></script>
+    <script src="<?php echo HtmlController::http() ?>"></script>
+    <?php echo HtmlController::global_styles() ?>
     <link rel="stylesheet" href="<?php echo $styles ?>style.css">
     <link rel="stylesheet" href="<?php echo $styles ?>header.css">
     <title>Document</title>
@@ -76,20 +76,20 @@
             <div class="navbarNav">
                 <ul id="navbar">
                     <li>
-                        <div><a href="<?php echo HtmlController::domain; ?>#about">About</a></div>
-                        <div><a href="<?php echo HtmlController::domain; ?>#about">About</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>#about">About</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>#about">About</a></div>
                     </li>
                     <li>
-                        <div><a href="<?php echo HtmlController::domain; ?>">DataBase</a></div>
-                        <div><a href="<?php echo HtmlController::domain; ?>">DataBase</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>">DataBase</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>">DataBase</a></div>
                     </li>
                     <li>
-                        <div><a href="<?php echo HtmlController::domain; ?>auth?login">Log in</a></div>
-                        <div><a href="<?php echo HtmlController::domain; ?>auth?login">Log in</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>auth?login">Log in</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>auth?login">Log in</a></div>
                     </li>
                     <li>
-                        <div><a href="<?php echo HtmlController::domain; ?>auth?reg">Sign in</a></div>
-                        <div><a href="<?php echo HtmlController::domain; ?>auth?reg">Sign in</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>auth?reg">Sign in</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>auth?reg">Sign in</a></div>
                     </li>
                 </ul>
             </div>

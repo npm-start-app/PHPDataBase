@@ -4,11 +4,11 @@ use SessionData\SessionData;
 use WBlib\Token;
 
 try {
-    HtmlController::global_styles;
-    HtmlController::http;
-    HtmlController::domain;
-    HtmlController::auther;
-    HtmlController::localSettings;
+    HtmlController::global_styles();
+    HtmlController::http();
+    HtmlController::domain();
+    HtmlController::auther();
+    HtmlController::localSettings();
     if (!isset($scripts)) {
         die();
     }
@@ -22,9 +22,9 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="<?php echo HtmlController::localSettings ?>"></script>
-    <script src="<?php echo HtmlController::http ?>"></script>
-    <?php echo HtmlController::global_styles ?>
+    <script src="<?php echo HtmlController::localSettings() ?>"></script>
+    <script src="<?php echo HtmlController::http() ?>"></script>
+    <?php echo HtmlController::global_styles() ?>
     <link rel="stylesheet" href="<?php echo $styles ?>style.css">
     <link rel="stylesheet" href="<?php echo $styles ?>cmd.css">
     <link rel="stylesheet" href="<?php echo $styles ?>explorer.css">
@@ -46,20 +46,20 @@ try {
             <div class="navbarNav">
                 <ul id="navbar">
                     <li>
-                        <div><a href="<?php echo HtmlController::domain; ?>account#files">Your files</a></div>
-                        <div><a href="<?php echo HtmlController::domain; ?>account#files">Your files</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>account#files">Your files</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>account#files">Your files</a></div>
                     </li>
                     <li>
-                        <div><a href="<?php echo HtmlController::domain; ?>">DataBase</a></div>
-                        <div><a href="<?php echo HtmlController::domain; ?>">DataBase</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>">DataBase</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>">DataBase</a></div>
                     </li>
                     <li>
-                        <div><a href="<?php echo HtmlController::domain; ?>account">Account data</a></div>
-                        <div><a href="<?php echo HtmlController::domain; ?>account">Account data</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>account">Account data</a></div>
+                        <div><a href="<?php echo HtmlController::domain(); ?>account">Account data</a></div>
                     </li>
                     <li>
-                        <div><a href="<?php echo HtmlController::domain ?>account/cmd">Cmd</a></div>
-                        <div><a href="<?php echo HtmlController::domain ?>account/cmd">Cmd</a></div>
+                        <div><a href="<?php echo HtmlController::domain() ?>account/cmd">Cmd</a></div>
+                        <div><a href="<?php echo HtmlController::domain() ?>account/cmd">Cmd</a></div>
                     </li>
                 </ul>
                 <div class="profile">
@@ -82,7 +82,7 @@ try {
         </div>
         <div class="cmdC">
             <div class="cmd_"><img width="36" height="36"
-                    src="<?php echo HtmlController::domain ?>static/images/cmd.png" />DataBase://account/cmd</div>
+                    src="<?php echo HtmlController::domain() ?>static/images/cmd.png" />DataBase://account/cmd</div>
             <div id="cmd" class="cmd"></div>
         </div>
         <div id="path" class="path">
