@@ -4,20 +4,20 @@ use WBlib\Token;
 
 class HtmlController
 {
-    const global_styles = '<link rel="stylesheet" href="http://localhost:5555/static/globals.css">';
-    const styles = "http://localhost:5555/static/styles/";
-    const scripts = "http://localhost:5555/static/scripts/";
-    const http = "http://localhost:5555/static/scripts/http/http.js";
-    const localSettings = "http://localhost:5555/static/scripts/LocalSettings/settings.js";
-    const auther = "http://localhost:5555/static/scripts/Auther/auth.js";
-    const domain = "http://localhost:5555/";
+    const global_styles = '<link rel="stylesheet" href="https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/globals.css">';
+    const styles = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/styles/";
+    const scripts = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/scripts/";
+    const http = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/scripts/http/http.js";
+    const localSettings = "http://localhost:5555/https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/scripts/LocalSettings/settings.js";
+    const auther = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/scripts/Auther/auth.js";
+    const domain = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/";
 
     public static function Home()
     {
         $styles = static::styles . "Home/";
         $scripts = static::scripts . "Home/";
 
-        include("./static/pages/Home/index.php");
+        include($_dir_ . "/static/pages/Home/index.php");
 
         return;
     }
@@ -25,7 +25,7 @@ class HtmlController
         $styles = static::styles . "Preauth/";
         $scripts = static::scripts . "Preauth/";
 
-        include("./static/pages/Preauth/index.php");
+        include($_dir_ . "/static/pages/Preauth/index.php");
 
         return;
     }
@@ -46,7 +46,7 @@ class HtmlController
             }
         }
 
-        include("./static/pages/Auth/index.php");
+        include($_dir_ . "/static/pages/Auth/index.php");
 
         return $result;
     }
@@ -55,7 +55,7 @@ class HtmlController
         $styles = static::styles . "Account/";
         $scripts = static::scripts . "Account/";
 
-        include("./static/pages/Account/index.php");
+        include($_dir_ . "/static/pages/Account/index.php");
 
         return;
     }
@@ -64,7 +64,7 @@ class HtmlController
         $styles = static::styles . "Cmd/";
         $scripts = static::scripts . "Cmd/";
 
-        include("./static/pages/Cmd/index.php");
+        include($_dir_ . "/static/pages/Cmd/index.php");
 
         return;
     }
