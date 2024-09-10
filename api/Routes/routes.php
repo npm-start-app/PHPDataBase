@@ -8,7 +8,7 @@ use WBlib\Settings;
 
 if (array_key_exists('1', explode('/', $_SERVER['REQUEST_URI']))) {
     if (explode('/', $_SERVER['REQUEST_URI'])[1] === 'static') {
-        header('Content-Type: ' . mime_content_type(__DIR__ . '/..' . $_SERVER['REQUEST_URI']));
+        header('Content-Type: ' . (substr(__DIR__ . '/..' . $_SERVER['REQUEST_URI'], -3) === 'css') ? "text/css" : mime_content_type(__DIR__ . '/..' . $_SERVER['REQUEST_URI']));
         echo file_get_contents(__DIR__ . '/..' . $_SERVER['REQUEST_URI']);
 
         exit();
