@@ -1,38 +1,39 @@
 <?php
 
+use WBlib\Settings;
 use WBlib\Token;
 
 class HtmlController
 {
-    const global_styles = '<link rel="stylesheet" href="https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/globals.css">';
-    const styles = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/styles/";
-    const scripts = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/scripts/";
-    const http = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/scripts/http/http.js";
-    const localSettings = "http://localhost:5555/https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/scripts/LocalSettings/settings.js";
-    const auther = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/static/scripts/Auther/auth.js";
-    const domain = "https://php-data-base-8u7d8z0c8-npm-start-apps-projects.vercel.app/";
+    public static function global_styles() {return '<link rel="stylesheet" href=' . static::domain() . '"static/globals.css">';}
+    public static function domain() {return Settings::getFullDomain() . '/';}
+    public static function styles() {return static::domain() . 'static/styles/';}
+    public static function scripts() {return static::domain() . 'static/scripts/';}
+    public static function http() {return static::domain() . 'static/scripts/http/http.js';}
+    public static function localSettings() {return static::domain() . 'static/scripts/LocalSettings/settings.js';}
+    public static function auther() {return static::domain() . 'static/scripts/Auther/auth.js';}
 
     public static function Home()
     {
-        $styles = static::styles . "Home/";
-        $scripts = static::scripts . "Home/";
+        $styles = static::styles() . "Home/";
+        $scripts = static::scripts() . "Home/";
 
-        include(__DIR__ . "/../static/pages/Home/index.php");
+        include("./static/pages/Home/index.php");
 
         return;
     }
     public static function Preauth() {
-        $styles = static::styles . "Preauth/";
-        $scripts = static::scripts . "Preauth/";
+        $styles = static::styles() . "Preauth/";
+        $scripts = static::scripts() . "Preauth/";
 
-        include(__DIR__ . "/../static/pages/Preauth/index.php");
+        include("./static/pages/Preauth/index.php");
 
         return;
     }
     public static function Auth()
     {
-        $styles = static::styles . "Auth/";
-        $scripts = static::scripts . "Auth/";
+        $styles = static::styles() . "Auth/";
+        $scripts = static::scripts() . "Auth/";
 
         $result = "";
 
@@ -46,25 +47,25 @@ class HtmlController
             }
         }
 
-        include(__DIR__ . "/../static/pages/Auth/index.php");
+        include("./static/pages/Auth/index.php");
 
         return $result;
     }
     public static function Account()
     {
-        $styles = static::styles . "Account/";
-        $scripts = static::scripts . "Account/";
+        $styles = static::styles() . "Account/";
+        $scripts = static::scripts() . "Account/";
 
-        include(__DIR__ . "/../static/pages/Account/index.php");
+        include("./static/pages/Account/index.php");
 
         return;
     }
     public static function Cmd()
     {
-        $styles = static::styles . "Cmd/";
-        $scripts = static::scripts . "Cmd/";
+        $styles = static::styles() . "Cmd/";
+        $scripts = static::scripts() . "Cmd/";
 
-        include(__DIR__ . "/../static/pages/Cmd/index.php");
+        include("./static/pages/Cmd/index.php");
 
         return;
     }
