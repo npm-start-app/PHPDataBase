@@ -15,7 +15,7 @@ class Settings {
         400 => [
             "msg" => true,
             "html" => [
-                "file" => "./static/pages/Error/_error.php",
+                "file" => __DIR__ . "/../../static/pages/Error/_error.php",
                 "code" => 400,
                 "h" => "Server Error",
                 "msg" => true,
@@ -25,7 +25,7 @@ class Settings {
         403 => [
             "msg" => true,
             "html" => [
-                "file" => "./static/pages/Error/_error.php",
+                "file" => __DIR__ . "/../../static/pages/Error/_error.php",
                 "code" => 404,
                 "h" => "Server Error",
                 "msg" => true,
@@ -35,7 +35,7 @@ class Settings {
         404 => [
             "msg" => true,
             "html" => [
-                "file" => "./static/pages/Error/_error.php",
+                "file" => __DIR__ . "/../../static/pages/Error/_error.php",
                 "code" => 404,
                 "h" => "Server Error",
                 "msg" => true,
@@ -45,7 +45,7 @@ class Settings {
         501 => [
             "msg" => true,
             "html" => [
-                "file" => "./static/pages/Error/_error.php",
+                "file" => __DIR__ . "/../../static/pages/Error/_error.php",
                 "code" => 501,
                 "h" => "Server Error",
                 "msg" => true,
@@ -55,7 +55,7 @@ class Settings {
         503 => [
             "msg" => true,
             "html" => [
-                "file" => "./static/pages/Error/_error.php",
+                "file" => __DIR__ . "/../../static/pages/Error/_error.php",
                 "code" => 503,
                 "h" => "Server Error",
                 "msg" => true,
@@ -65,7 +65,7 @@ class Settings {
         500 => [
             "msg" => true,
             "html" => [
-                "file" => "./static/pages/Error/_error.php",
+                "file" => __DIR__ . "/../../static/pages/Error/_error.php",
                 "code" => 500,
                 "h" => "Server Error",
                 "msg" => true,
