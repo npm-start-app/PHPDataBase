@@ -1,0 +1,9 @@
+{
+    "/help": "Overall information about DataBase cmd commands",
+    "/stats": "DataBase services status",
+    "/drive createFile [?folder = root]": "Upload a file to the DataBase",
+    "/drive fileList [?file_amount = 20]": "DataBase file list",
+    "/drive getFile [fileId]": "Download a file",
+    "/drive init": "DataBase file structure creation",
+    "/drive checkStructure": "DataBase file structure information"
+}

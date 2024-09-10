@@ -1,0 +1,129 @@
+body {
+    font-family: "Maven Pro", sans-serif;
+    background-color: #0c0c0d;
+    color: white;
+}
+
+.about {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 150px 0;
+}
+
+.aboutC {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.aboutC img {
+    height: 350px;
+    width: 450px;
+}
+
+.hAbout {
+    font-size: 2.8em;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+.hAbout span {
+    color: #ffc200;
+    position: relative;
+}
+
+.hAbout span p {
+    display: inline-block;
+}
+
+.hAbout span p:first-child {
+    opacity: 1;
+    animation: hAbout_1 8s linear infinite;
+    transform: translateY(0%);
+}
+
+.hAbout span p:last-child {
+    position: absolute;
+    white-space: nowrap;
+    left: 0;
+    top: 0;
+    opacity: 0;
+
+    animation: hAbout_2 8s linear infinite;
+    transform: translateY(-10%);
+}
+
+.tAbout {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #5b5b5b;
+}
+
+.contentAbout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.aAbout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+
+    padding: 15px 30px;
+    color: #5b5b5b;
+    background: #eee;
+    border-radius: 10px;
+
+    font-weight: bold;
+    font-size: 14px;
+    line-height: normal;
+    text-decoration: none;
+
+    transition: all 0.4s ease;
+}
+
+.aAbout:hover {
+    color: #ffc200;
+}
+
+@keyframes hAbout_1 {
+    0% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    2%, 50% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    52%, 100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes hAbout_2 {
+    0%, 4% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    6%, 38% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    40%, 100% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1140px;
+    }
+}
