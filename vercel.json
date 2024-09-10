@@ -5,7 +5,7 @@
         }
     },
     "routes": [
-        { "src": "/static/(.*)", "dest": "/api/static/"},
+        { "src": "/static/(.*)", "dest": "/api/"},
         { "src": "/.*", "dest": "/api/index.php" }
     ]
 }
