@@ -2,15 +2,15 @@
 namespace WBlib;
 $libName = "lib";
 
-include_once(__DIR__ . '/CustomErrorHandlers/CustomErrorHandler.php');
+include_once($_dir_ . '/CustomErrorHandlers/CustomErrorHandler.php');
 
-include_once(__DIR__ . "/$libName/SessionUserData/sessionUserData.php");
-include_once(__DIR__ . "/$libName/settings.php");
-include_once(__DIR__ . "/$libName/init.php");
-include_once(__DIR__ . "/$libName/Error/error.php");
-include_once(__DIR__ . "/$libName/Error/errorLog.php");
-include_once(__DIR__ . "/$libName/Token/token.php");
-include_once(__DIR__ . "/$libName/Middlewares/index.php");
-include_once(__DIR__ . "/$libName/Redis/index.php");
-include_once(__DIR__ . "/$libName/Mailer/index.php");
-include_once(__DIR__ . "/$libName/Route/route.php");
+include_once($_dir_ . "/$libName/SessionUserData/sessionUserData.php");
+include_once($_dir_ . "/$libName/settings.php");
+include_once($_dir_ . "/$libName/init.php");
+include_once($_dir_ . "/$libName/Error/error.php");
+include_once($_dir_ . "/$libName/Error/errorLog.php");
+include_once($_dir_ . "/$libName/Token/token.php");
+include_once($_dir_ . "/$libName/Middlewares/index.php");
+include_once($_dir_ . "/$libName/Redis/index.php");
+include_once($_dir_ . "/$libName/Mailer/index.php");
+include_once($_dir_ . "/$libName/Route/route.php");
