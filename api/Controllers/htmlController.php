@@ -5,7 +5,7 @@ use WBlib\Token;
 
 class HtmlController
 {
-    public static function global_styles() {return '<link rel="stylesheet" href=' . static::domain() . '"static/globals.css">';}
+    public static function global_styles() {return '<link rel="stylesheet" href="' . static::domain() . 'static/globals.css">';}
     public static function domain() {return Settings::getFullDomain() . '/';}
     public static function styles() {return static::domain() . 'static/styles/';}
     public static function scripts() {return static::domain() . 'static/scripts/';}
