@@ -11,7 +11,7 @@ class RD
         try {
             static::$conn = new Redis();
 
-            static::$conn->connect(Settings::redisConnectionString, Settings::redisConnectionNumber);
+            static::$conn->connect(Settings::redisConnectionString, Settings::redisConnectionNumber, 2);
             static::$conn->auth(Settings::redisPassword);
 
             static::$conn->ping();
