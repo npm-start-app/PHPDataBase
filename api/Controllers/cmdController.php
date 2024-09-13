@@ -214,8 +214,6 @@ class Cmd
             }
         }
 
-        RD::close();
-
         return [
             "status" => true,
             "result" => $result,
