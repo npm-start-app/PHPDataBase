@@ -22,7 +22,7 @@ class Route
     }
     public static function response($result, $code = 200)
     {
-        https_response_code($code);
+        http_response_code($code);
         
         if (gettype($result) === "array") {
             if (Settings::isApiModeAllowed()) { header('Content-Type: application/json; charset=utf-8'); }
