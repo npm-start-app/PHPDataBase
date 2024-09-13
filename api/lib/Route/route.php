@@ -32,8 +32,7 @@ class Route
             echo $result;
         }
 
-        echo $code;
-        http_response_code($code);
+        https_response_code($code);
 
         die();
     }
