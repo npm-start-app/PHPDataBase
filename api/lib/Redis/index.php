@@ -76,11 +76,14 @@ class RD
     {
         try {
             static::$conn->close();
+            static::$conn = null;
 
             if ($returnResult) {
                 return true;
             }
         } catch (Throwable $th) {
+            static::$conn = null;
+            
             if (!$returnResult) {
                 Error::e500();
             } else {
