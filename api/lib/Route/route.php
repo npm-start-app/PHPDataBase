@@ -22,6 +22,10 @@ class Route
     }
     public static function response($result, $code = 200)
     {
+        if (SessionData::$redis) {
+            RD::close();
+        }
+        
         http_response_code($code);
         
         if (gettype($result) === "array") {
