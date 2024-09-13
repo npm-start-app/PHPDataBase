@@ -52,6 +52,7 @@ class HtmlController
         $styles = static::styles() . "Account/";
         $scripts = static::scripts() . "Account/";
 
+        RD::close();
         include(__DIR__ . "/../static/pages/Account/index.php");
 
         return;
@@ -63,6 +64,7 @@ class HtmlController
         $styles = static::styles() . "Cmd/";
         $scripts = static::scripts() . "Cmd/";
 
+        RD::close();
         include(__DIR__ . "/../static/pages/Cmd/index.php");
 
         return;
