@@ -73,9 +73,7 @@ class RD
         }
     }
     public static function close($returnResult = false)
-    {
-        echo 'redis';
-        
+    {   
         try {
             static::$conn->close();
             static::$conn = null;
