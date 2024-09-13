@@ -113,4 +113,4 @@ class Route
     }
 }
 
-register_shutdown_function('WBlib\Route::softExit');
+// register_shutdown_function('WBlib\Route::softExit');
