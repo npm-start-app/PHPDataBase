@@ -143,6 +143,14 @@
     cursor: pointer;
 }
 
+.disabled {
+    color: grey;
+}
+
+.disabled:hover {
+    color: grey;
+}
+
 .profile a {
     color: white;
     text-decoration: none;

@@ -4,14 +4,13 @@ use SessionData\SessionData;
 use WBlib\Error\Error;
 use WBlib\ParamsChecker;
 use WBlib\Route;
-use WBlib\Settings;
 
 if (array_key_exists('1', explode('/', $_SERVER['REQUEST_URI']))) {
     if (explode('/', $_SERVER['REQUEST_URI'])[1] === 'static') {
         header((substr(__DIR__ . '/..' . $_SERVER['REQUEST_URI'], -3) === 'css') ? "Content-Type: text/css" : "Content-Type: " . mime_content_type(__DIR__ . '/..' . $_SERVER['REQUEST_URI']));
         echo file_get_contents(__DIR__ . '/..' . $_SERVER['REQUEST_URI']);
 
-        exit();
+        die();
     } 
 }
 
@@ -23,7 +22,6 @@ class Routes
     const Auth = "/auth";
     const Account = "/account";
     const Cmd = "/account/cmd";
-    const Preauth = "/auth/preauth";
     const Api_CheckToken = "/api/auth/checkToken";
     const Api_SignIn = "/api/auth/signIn";
     const Api_Auth = "/api/auth";

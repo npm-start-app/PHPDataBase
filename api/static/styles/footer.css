@@ -1,0 +1,6 @@
+.footer {
+    height: 150px;
+    background: linear-gradient(0deg, rgba(255,194,0,1) 13%, rgba(12,12,13,1) 85%);
+    /* background: linear-gradient(122deg, rgba(255,194,0,1) 13%, rgba(12,12,13,1) 73%); */
+    clip-path: polygon(34% 100%, 81% 0, 81% 59%, 100% 100%, 69% 100%, 32% 100%, 0 100%, 0 0, 14% 40%);
+}

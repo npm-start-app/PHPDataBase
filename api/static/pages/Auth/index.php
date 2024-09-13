@@ -4,6 +4,8 @@
     HtmlController::domain();
     HtmlController::auther();
     HtmlController::localSettings();
+    HtmlController::footer();
+    HtmlController::loader();
     if (!isset($scripts)) {
         die();
     }
@@ -28,7 +30,14 @@
     <?php echo HtmlController::global_styles() ?>
     <link rel="stylesheet" href="<?php echo $styles ?>style.css">
     <link rel="stylesheet" href="<?php echo $styles ?>header.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="<?php echo $styles ?>background.css">
+    <?php echo HtmlController::footer() ?>
+    <?php echo HtmlController::loader() ?>
+    <title><?php if (array_key_exists("reg", $_GET)) {
+                echo "Sign up";
+            } else {
+                echo "Log in";
+            } ?></title>
 </head>
 
 <body>
@@ -40,33 +49,28 @@
                 </div>
             </div>
             <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
-                <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;">
-                </div>
+                <div id="rightbox1" class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>
             </div>
             <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
                 <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
             </div>
             <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
-                <div id="yellowBox1" class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
+                <div id="rightbox2" class="box-root box-background--blue animationLeftRight transition" style="flex-grow: 1;"></div>
             </div>
             <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
-                <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;">
-                </div>
+                <div id="rightbox3" class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
             </div>
             <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
-                <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;">
-                </div>
+                <div id="leftbox1" class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
             </div>
             <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
-                <div id="yellowBox2" class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
+                <div id="leftbox2" class="box-root box-background--blue animationRightLeft transition" style="flex-grow: 1;"></div>
             </div>
             <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">
-                <div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;">
-                </div>
+                <div id="leftbox3" class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>
             </div>
             <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">
-                <div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;">
-                </div>
+                <div id="leftbox4" class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>
             </div>
         </div>
     </div>
@@ -93,7 +97,7 @@
                     </li>
                 </ul>
             </div>
-            <a class="logo" id="logo">
+            <a class="logo" href="/" id="logo">
                 <i class="fa-solid fa-database"></i>
                 <div>DataBase</div>
             </a>
@@ -101,58 +105,71 @@
     </div>
 
     <div class="main">
-        <div class="form">
-            <div class="hFText">
-                <?php if (array_key_exists("reg", $_GET)) {
-                    echo "Sign up for DataBase";
-                } else {
-                    echo "Log in to your account";
-                } ?>
-            </div>
-            <div id="inputs" class="inputs">
+        <div class="formC">
+            <div class="form">
+                <div class="hFText">
+                    <?php if (array_key_exists("reg", $_GET)) {
+                        echo "Sign up for DataBase";
+                    } else {
+                        echo "Log in to your account";
+                    } ?>
+                </div>
+                <div id="inputs" class="inputs">
+                    <?php if (array_key_exists("reg", $_GET)): ?>
+                        <div class="input">
+                            <label for="token">Token</label>
+                            <input type="text" id="token" name="token" required />
+                        </div>
+                    <?php else: ?>
+                        <div class="input">
+                            <label for="username">Username</label>
+                            <input type="text" id="login" name="username" required />
+                        </div>
+                        <div class="input">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required />
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="button">
+                    <button id="button" onclick="<?php if (array_key_exists("reg", $_GET)) {
+                                                        echo "checkTheAuthToken()";
+                                                    } else {
+                                                        echo "dataValidationLogin()";
+                                                    } ?>">Check</button>
+                </div>
+
+                <div style="display: none;" id="back" class="button">
+                    <button onclick="tokenForm()">Back</button>
+                </div>
+
+                <div id="errorMSG"></div>
+
                 <?php if (array_key_exists("reg", $_GET)): ?>
-                    <div class="input">
-                        <label for="token">Token</label>
-                        <input type="text" id="token" name="token" required />
+                    <div class="signUpRef">Have already an account?
+                        <a href="?login">Log in</a>
                     </div>
                 <?php else: ?>
-                    <div class="input">
-                        <label for="username">Username</label>
-                        <input type="text" id="login" name="username" required />
-                    </div>
-                    <div class="input">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required />
+                    <div class="signUpRef">Don't have an account?
+                        <a href="?reg">Sign up</a>
                     </div>
                 <?php endif; ?>
             </div>
-            <div class="button">
-                <button id="button" onclick="<?php if (array_key_exists("reg", $_GET)) {
-                                                    echo "checkTheAuthToken()";
-                                                } else {
-                                                    echo "dataValidationLogin()";
-                                                } ?>">Check</button>
-            </div>
-
-            <div style="display: none;" id="back" class="button">
-                <button onclick="tokenForm()">Back</button>
-            </div>
-
-            <div id="errorMSG"></div>
-
-            <?php if (array_key_exists("reg", $_GET)): ?>
-                <div class="signUpRef">Have already an account?
-                    <a href="?login">Log in</a>
-                </div>
-            <?php else: ?>
-                <div class="signUpRef">Don't have an account?
-                    <a href="?reg">Sign up</a>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 
-    <div id="Icons" class="stopAnim"></div>
+    <div class="footer"></div>
+
+    <div id="Icons" class="icons">
+        <div style="display: none;" id="loader" class="loader">
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+        </div>
+    </div>
 
     <script src="<?php echo $scripts ?>main.js"></script>
 </body>

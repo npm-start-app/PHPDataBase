@@ -1,7 +1,7 @@
 <?php
 
+use SessionData\SessionData;
 use WBlib\Settings;
-use WBlib\Token;
 
 class HtmlController
 {
@@ -12,6 +12,8 @@ class HtmlController
     public static function http() {return static::domain() . 'static/scripts/http/http.js';}
     public static function localSettings() {return static::domain() . 'static/scripts/LocalSettings/settings.js';}
     public static function auther() {return static::domain() . 'static/scripts/Auther/auth.js';}
+    public static function footer() {return '<link rel="stylesheet" href="' . static::domain() . 'static/styles/footer.css">';}
+    public static function loader() {return '<link rel="stylesheet" href="' . static::domain() . 'static/styles/loader.css">';}
 
     public static function Home()
     {
@@ -19,14 +21,6 @@ class HtmlController
         $scripts = static::scripts() . "Home/";
 
         include(__DIR__ . "/../static/pages/Home/index.php");
-
-        return;
-    }
-    public static function Preauth() {
-        $styles = static::styles() . "Preauth/";
-        $scripts = static::scripts() . "Preauth/";
-
-        include(__DIR__ . "/../static/pages/Preauth/index.php");
 
         return;
     }
@@ -53,6 +47,8 @@ class HtmlController
     }
     public static function Account()
     {
+        $data = SessionData::$userProfile;
+
         $styles = static::styles() . "Account/";
         $scripts = static::scripts() . "Account/";
 
@@ -62,6 +58,8 @@ class HtmlController
     }
     public static function Cmd()
     {
+        $data = SessionData::$userProfile;
+
         $styles = static::styles() . "Cmd/";
         $scripts = static::scripts() . "Cmd/";
 

@@ -9,6 +9,8 @@ try {
     HtmlController::domain();
     HtmlController::auther();
     HtmlController::localSettings();
+    HtmlController::footer();
+    HtmlController::loader();
     if (!isset($scripts)) {
         die();
     }
@@ -28,12 +30,14 @@ try {
     <?php echo HtmlController::global_styles() ?>
     <link rel="stylesheet" href="<?php echo $styles ?>style.css">
     <link rel="stylesheet" href="<?php echo $styles ?>header.css">
+    <?php echo HtmlController::footer() ?>
+    <?php echo HtmlController::loader() ?>
     <script src="https://kit.fontawesome.com/e69856d59d.js" crossorigin="anonymous"></script>
-    <title>DataBase Account</title>
+    <title>Account</title>
 </head>
 
 <body>
-    <input id="csrf" style="display: none;" disabled hidden readonly value="<?php echo Token::csrf(SessionData::$user['csrfSecret']); ?>" />
+    <input id="csrf" style="display: none;" disabled hidden readonly value="<?php echo $data['csrf']; ?>" />
 
     <div class="navbar">
         <div class="container header">
@@ -103,9 +107,10 @@ try {
                 </div>
             </div>
         </div>
+        <div id="errorMSG"></div>
         <div class="profileButtons">
-            <button onclick="returnData()">Return</button>
-            <button onclick="editUserData()">Save</button>
+            <button id="buttonR" onclick="returnData()">Return</button>
+            <button id="buttonS" onclick="editUserData()">Save</button>
         </div>
     </div>
 
@@ -125,13 +130,24 @@ try {
                     <?php endif; ?>
                     <option value="User Token">User Token</option>
                 </select>
-                <button onclick="generateToken()">Generate</button>
+                <button id="buttonG" onclick="generateToken()">Generate</button>
             </div>
         </div>
 
     <?php endif; ?>
 
     <div class="footer"></div>
+
+    <div id="Icons" class="icons">
+        <div style="display: none;" id="loader" class="loader">
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+        </div>
+    </div>
 
     <script src="<?php echo $scripts ?>main.js"></script>
 </body>

@@ -1,37 +1,29 @@
 
-const startAnim = () => {
-    window.location.href = '#r'
+let functions = {
+    logout: true,
+    auth: true
+}
 
-    const el = document.getElementById("animTestLine")
-    if (el.classList.contains("_anim")) return el.classList.remove("_anim")
-
-    el.classList.add("_anim")
-    setTimeout(() => {
-        const el = document.getElementById("animTestMainLine")
-        const el1 = document.getElementById("animTestSupLine")
-
-        el.classList.add("_anim1")
-        el1.classList.add("_anim")
-
-        setTimeout(() => {
-            const el = document.getElementById("animTestSup1Line")
-
-            el.classList.add("_anim")
-        }, 300);
-    }, 300);
+const disableExitButton = (buttonId) => {
+    document.getElementById('loader').style.display = 'block'
+    document.getElementById(buttonId).classList.add('disabled')
+    document.getElementById(buttonId).onclick = null
 }
 
 const checkAuth = async () => {
-    const result = await Auth.check()
+    if (functions.auth) {
+        functions.auth = false
 
-    if (result) {
-        document.getElementById("userName").innerHTML = `${JSON.parse(localStorage.getItem('user')).login}`
+        const result = await Auth.check()
 
-        document.getElementById("logoutI").style.display = 'block'
+        if (result) {
+            document.getElementById("userName").innerHTML = `${JSON.parse(localStorage.getItem('user')).login}`
 
-        document.getElementById('user').href = '/account'
-    } else {
-        document.getElementById('navbar').innerHTML += `
+            document.getElementById("logoutI").style.display = 'block'
+
+            document.getElementById('user').href = '/account'
+        } else {
+            document.getElementById('navbar').innerHTML += `
             <li>
                 <div><a href="${http.getDomain()}auth?login">Log in</a></div>
                 <div><a href="${http.getDomain()}auth?login">Log in</a></div>
@@ -41,16 +33,24 @@ const checkAuth = async () => {
                 <div><a href="${http.getDomain()}auth?reg">Sign in</a></div>
             </li>
         `
+        }
+
+        functions.auth = true
     }
 }
 
 const logout = async () => {
-    await http.get('api/auth/logout/')
+    if (functions.logout) {
+        functions.logout = false
+        disableExitButton('logoutI')
 
-    localStorage.removeItem("user")
-    localStorage.removeItem("role")
+        await http.get('api/auth/logout/')
 
-    window.location = '/'
+        localStorage.removeItem("user")
+        localStorage.removeItem("role")
+
+        window.location = '/'
+    }
 }
 
 checkAuth()

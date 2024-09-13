@@ -1,5 +1,5 @@
 <?php
 
-include_once ($_dir_ . "/Controllers/authController.php");
-include_once ($_dir_ . "/Controllers/htmlController.php");
-include_once ($_dir_ . "/Controllers/cmdController.php");
+include_once (__DIR__ . "/authController.php");
+include_once (__DIR__ . "/htmlController.php");
+include_once (__DIR__ . "/cmdController.php");

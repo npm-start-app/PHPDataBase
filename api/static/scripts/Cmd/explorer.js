@@ -1,4 +1,8 @@
 
+let functionsEXP = {
+    getfolderfiles: true
+}
+
 sessionStorage.removeItem('selectedFile')
 sessionStorage.removeItem('files')
 
@@ -82,20 +86,26 @@ const div_onclick = async (e) => {
 }
 
 const getFolderFiles = async (folderId = 'root') => {
-    const data = new URLSearchParams()
-    data.append('folderId', folderId)
+    if (functionsEXP.getfolderfiles) {
+        functionsEXP.getfolderfiles = false
+        
+        const data = new URLSearchParams()
+        data.append('folderId', folderId)
 
-    let result = await http.get('drive/getFolderFiles', data, http.getDriveDomain())
+        let result = await http.get('drive/getFolderFiles', data, http.getDriveDomain())
 
-    let folderFiles = result.data.result
-    let _newFolderFiles = {}
+        let folderFiles = result.data.result
+        let _newFolderFiles = {}
 
-    for (const file in folderFiles) {
-        _newFolderFiles['exp_div_' + file] = folderFiles[file]
-        setHtmlFile(folderFiles[file].name, folderFiles[file].mimeType, 'exp_div_' + file, 'div_onclick(this)')
+        for (const file in folderFiles) {
+            _newFolderFiles['exp_div_' + file] = folderFiles[file]
+            setHtmlFile(folderFiles[file].name, folderFiles[file].mimeType, 'exp_div_' + file, 'div_onclick(this)')
+        }
+
+        sessionStorage.setItem('files', JSON.stringify(_newFolderFiles))
+
+        functionsEXP.getfolderfiles = true
     }
-
-    sessionStorage.setItem('files', JSON.stringify(_newFolderFiles))
 }
 
 getFolderFiles()

@@ -1,173 +1,60 @@
 
+let functionsCMD = {
+    do: true,
+    subdo: true
+}
+
 let _doSubVar
 
 let _doSubFunc = async () => {
-    document.body.onfocus = null
+    if (functionsCMD.subdo) {
+        functionsCMD.subdo = false
 
-    try {
-        document.getElementById('putIn').id = ''
-    } catch (error) {
-    }
-
-    try {
-        let result = _doSubVar
-
-        let _data
-
-        _data = new FormData()
-
-        if (result.data.data) {
-            for (const param in result.data.data) {
-                if (!isNaN(parseInt(param))) {
-                    _data.append(result.data.data[param], document.getElementById('inputFile').files[0])
-                } else {
-                    _data.append(param, result.data.data[param])
-                }
-            }
-        }
-
-        let _result
+        document.body.onfocus = null
 
         try {
-            _result = await http[result.data.method](result.data.url, _data, result.data.domain)
+            document.getElementById('putIn').id = ''
         } catch (error) {
         }
 
-        if (_result) {
-            await Cmd.print([
-                0, 0,
-                'Server>', ...JSON.stringify(_result.data.result),
-                0, 0,
-                Cmd.user.login + '>',
-                1
-            ], () => {
-                Cmd.canPrint = true
-            })
-        } else {
-            await Cmd.print([
-                0, 0,
-                'Server>' + 'Server connection error. See logs for more details.',
-                0, 0,
-                Cmd.user.login + '>',
-                1
-            ], () => {
-                Cmd.canPrint = true
-            })
-        }
-    } catch (error) {
-        console.log(error)
+        try {
+            let result = _doSubVar
 
-        await Cmd.print([
-            0, 0,
-            'Server>' + 'Client error. See logs for more details.',
-            0, 0,
-            Cmd.user.login + '>',
-            1
-        ], () => {
-            Cmd.canPrint = true
-        })
-    }
-}
+            let _data
 
-let _do = async (command) => {
-    try {
-        document.getElementById('putIn').id = ''
-    } catch (error) {
-    }
+            _data = new FormData()
 
-    try {
-        const params = new FormData()
-        params.append('command', command.replaceAll('&nbsp;', ' '))
-
-        let result = await http.post('api/cmd', params)
-
-        if (result.response.status == 403) {
-            window.location.href = '/'
-        }
-        if (result.response.ok) {
-            if (result.data.recall) {
-                if (result.data.file) {
-                    await Cmd.print([
-                        0, 0,
-                        'Server>', ...result.data.result
-                    ])
-
-                    _doSubVar = result
-
-                    document.getElementById('inputFile').click()
-                } else {
-                    await Cmd.print([
-                        0, 0,
-                        'Server>', ...result.data.result
-                    ])
-
-                    let _data
-
-                    _data = new URLSearchParams()
-
-                    if (result.data.data) {
-                        for (const param in result.data.data) {
-                            _data.append(param, result.data.data[param])
-                        }
-                    }
-
-                    let _result
-
-                    try {
-                        _result = await http[result.data.method](result.data.url, _data, result.data.domain)
-                    } catch (error) {
-                    }
-
-                    if (_result) {
-                        const downloadFile = (buffer, name) => {
-                            const blob = new Blob([new Uint8Array(buffer.data)], { type: 'application/octet-stream' });
-
-                            const url = window.URL.createObjectURL(blob);
-
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = name;
-                            a.style.display = 'none';
-
-                            document.body.appendChild(a);
-                            a.click();
-
-                            document.body.removeChild(a);
-
-                            window.URL.revokeObjectURL(url);
-                        }
-
-                        if (_result.data.files !== undefined) {
-                            _result.data.files.forEach(file => {
-                                downloadFile(file.buffer, file.name)
-                            });
-                        }
-
-                        await Cmd.print([
-                            0, 0,
-                            'Server>', ..._result.data.result,
-                            0, 0,
-                            Cmd.user.login + '>',
-                            1
-                        ], () => {
-                            Cmd.canPrint = true
-                        })
+            if (result.data.data) {
+                for (const param in result.data.data) {
+                    if (!isNaN(parseInt(param))) {
+                        _data.append(result.data.data[param], document.getElementById('inputFile').files[0])
                     } else {
-                        await Cmd.print([
-                            0, 0,
-                            'Server>' + 'Server connection error. See logs for more details',
-                            0, 0,
-                            Cmd.user.login + '>',
-                            1
-                        ], () => {
-                            Cmd.canPrint = true
-                        })
+                        _data.append(param, result.data.data[param])
                     }
                 }
+            }
+
+            let _result
+
+            try {
+                _result = await http[result.data.method](result.data.url, _data, result.data.domain)
+            } catch (error) {
+            }
+
+            if (_result) {
+                await Cmd.print([
+                    0, 0,
+                    'Server>', ...JSON.stringify(_result.data.result),
+                    0, 0,
+                    Cmd.user.login + '>',
+                    1
+                ], () => {
+                    Cmd.canPrint = true
+                })
             } else {
                 await Cmd.print([
                     0, 0,
-                    'Server>', ...result.data.result,
+                    'Server>' + 'Server connection error. See logs for more details.',
                     0, 0,
                     Cmd.user.login + '>',
                     1
@@ -175,10 +62,12 @@ let _do = async (command) => {
                     Cmd.canPrint = true
                 })
             }
-        } else {
+        } catch (error) {
+            console.log(error)
+
             await Cmd.print([
                 0, 0,
-                'Server>' + 'Server connection error. See logs for more details',
+                'Server>' + 'Client error. See logs for more details.',
                 0, 0,
                 Cmd.user.login + '>',
                 1
@@ -186,18 +75,146 @@ let _do = async (command) => {
                 Cmd.canPrint = true
             })
         }
-    } catch (error) {
-        console.log(error)
 
-        await Cmd.print([
-            0, 0,
-            'Server>' + 'Client error. See logs for more details',
-            0, 0,
-            Cmd.user.login + '>',
-            1
-        ], () => {
-            Cmd.canPrint = true
-        })
+        functionsCMD.subdo = true
+    }
+}
+
+let _do = async (command) => {
+    if (functionsCMD.do) {
+        functionsCMD.do = false
+
+        try {
+            document.getElementById('putIn').id = ''
+        } catch (error) {
+        }
+
+        try {
+            const params = new FormData()
+            params.append('command', command.replaceAll('&nbsp;', ' '))
+
+            let result = await http.post('api/cmd', params)
+
+            if (result.response.status == 403) {
+                window.location.href = '/'
+            }
+            if (result.response.ok) {
+                if (result.data.recall) {
+                    if (result.data.file) {
+                        await Cmd.print([
+                            0, 0,
+                            'Server>', ...result.data.result
+                        ])
+
+                        _doSubVar = result
+
+                        document.getElementById('inputFile').click()
+                    } else {
+                        await Cmd.print([
+                            0, 0,
+                            'Server>', ...result.data.result
+                        ])
+
+                        let _data
+
+                        _data = new URLSearchParams()
+
+                        if (result.data.data) {
+                            for (const param in result.data.data) {
+                                _data.append(param, result.data.data[param])
+                            }
+                        }
+
+                        let _result
+
+                        try {
+                            _result = await http[result.data.method](result.data.url, _data, result.data.domain)
+                        } catch (error) {
+                        }
+
+                        if (_result) {
+                            const downloadFile = (buffer, name) => {
+                                const blob = new Blob([new Uint8Array(buffer.data)], { type: 'application/octet-stream' });
+
+                                const url = window.URL.createObjectURL(blob);
+
+                                const a = document.createElement('a');
+                                a.href = url;
+                                a.download = name;
+                                a.style.display = 'none';
+
+                                document.body.appendChild(a);
+                                a.click();
+
+                                document.body.removeChild(a);
+
+                                window.URL.revokeObjectURL(url);
+                            }
+
+                            if (_result.data.files !== undefined) {
+                                _result.data.files.forEach(file => {
+                                    downloadFile(file.buffer, file.name)
+                                });
+                            }
+
+                            await Cmd.print([
+                                0, 0,
+                                'Server>', ..._result.data.result,
+                                0, 0,
+                                Cmd.user.login + '>',
+                                1
+                            ], () => {
+                                Cmd.canPrint = true
+                            })
+                        } else {
+                            await Cmd.print([
+                                0, 0,
+                                'Server>' + 'Server connection error. See logs for more details',
+                                0, 0,
+                                Cmd.user.login + '>',
+                                1
+                            ], () => {
+                                Cmd.canPrint = true
+                            })
+                        }
+                    }
+                } else {
+                    await Cmd.print([
+                        0, 0,
+                        'Server>', ...result.data.result,
+                        0, 0,
+                        Cmd.user.login + '>',
+                        1
+                    ], () => {
+                        Cmd.canPrint = true
+                    })
+                }
+            } else {
+                await Cmd.print([
+                    0, 0,
+                    'Server>' + 'Server connection error. See logs for more details',
+                    0, 0,
+                    Cmd.user.login + '>',
+                    1
+                ], () => {
+                    Cmd.canPrint = true
+                })
+            }
+        } catch (error) {
+            console.log(error)
+
+            await Cmd.print([
+                0, 0,
+                'Server>' + 'Client error. See logs for more details',
+                0, 0,
+                Cmd.user.login + '>',
+                1
+            ], () => {
+                Cmd.canPrint = true
+            })
+        }
+
+        functionsCMD.do = true
     }
 }
 

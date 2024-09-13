@@ -53,7 +53,7 @@ class Error
         http_response_code($code);
 
         if (!Settings::isApiModeAllowed() and $html !== false) {
-            include(__DIR__ . "/../.." . $html);
+            include(__DIR__ . '/../..' . $html);
 
             die();
         }
@@ -97,7 +97,7 @@ class Error
         http_response_code($code);
 
         if (!Settings::isApiModeAllowed() and $html !== false) {
-            include(__DIR__ . "/../.." . $html);
+            include(__DIR__ . '/../..' . $html);
 
             die();
         }
@@ -141,7 +141,7 @@ class Error
         http_response_code($code);
 
         if (!Settings::isApiModeAllowed() and $html !== false) {
-            include(__DIR__ . "/../.." . $html);
+            include(__DIR__ . '/../..' . $html);
 
             die();
         }
@@ -185,7 +185,7 @@ class Error
         http_response_code($code);
 
         if (!Settings::isApiModeAllowed() and $html !== false) {
-            include(__DIR__ . "/../.." . $html);
+            include(__DIR__ . '/../..' . $html);
 
             die();
         }
@@ -229,7 +229,7 @@ class Error
         http_response_code($code);
 
         if (!Settings::isApiModeAllowed() and $html !== false) {
-            include(__DIR__ . "/../.." . $html);
+            include(__DIR__ . '/../..' . $html);
 
             die();
         }
@@ -273,7 +273,7 @@ class Error
         http_response_code($code);
 
         if (!Settings::isApiModeAllowed() and $html !== false) {
-            include(__DIR__ . "/../.." . $html);
+            include(__DIR__ . '/../..' . $html);
 
             die();
         }

@@ -15,7 +15,7 @@ class AuthChecker
             if (SessionData::$redirectToMain) {
                 header('Location: ' . Settings::getFullDomain());
 
-                exit();
+                die();
             }
 
             Route::response([
@@ -37,7 +37,7 @@ class AuthChecker
             if (SessionData::$redirectToMain) {
                 header('Location: ' . Settings::getFullDomain());
 
-                exit();
+                die();
             }
 
             Route::response([
@@ -52,7 +52,7 @@ class AuthChecker
             if (SessionData::$redirectToMain) {
                 header('Location: ' . Settings::getFullDomain());
 
-                exit();
+                die();
             }
 
             Route::response([
@@ -71,6 +71,8 @@ class AuthChecker
             'csrfSecret' => $result['csrfSecret']
         ];
 
+        SessionData::$userProfile = $result;
+
         return true;
     }
 
@@ -88,7 +90,7 @@ class AuthChecker
                 if (SessionData::$redirectToMain) {
                     header('Location: ' . Settings::getFullDomain());
 
-                    exit();
+                    die();
                 }
 
                 Route::response([
@@ -107,7 +109,7 @@ class AuthChecker
                 if (SessionData::$redirectToMain) {
                     header('Location: ' . Settings::getFullDomain());
 
-                    exit();
+                    die();
                 }
 
                 Route::response([
@@ -127,7 +129,7 @@ class AuthChecker
                 if (SessionData::$redirectToMain) {
                     header('Location: ' . Settings::getFullDomain());
 
-                    exit();
+                    die();
                 }
 
                 Route::response([
@@ -152,6 +154,13 @@ class AuthChecker
         $newCsrf = $salt . ":" . md5($salt . ":" . SessionData::$user['csrfSecret']);
 
         if (strcmp($newCsrf, $csrf) !== 0) {
+            Route::response([
+                "status" => false,
+                "message" => "Bad parameters."
+            ], Error::BadRequest);
+        }
+
+        if (strcmp(SessionData::$userProfile['csrf'], $csrf) !== 0) {
             Route::response([
                 "status" => false,
                 "message" => "Bad parameters."

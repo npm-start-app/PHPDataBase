@@ -2,13 +2,9 @@
 namespace WBlib;
 
 class Settings {
-    // |-- csrf --|
-
-    const secret = 'e845ae28707d5141121cbdbea282f4cefaa32fd85d32fff0b78ea6c3bde2eed05837901eab37b4f1aa2a119d0e19eaff1bbcd344c4e11PHwDOiJSq4P/0rdcimY3ycc86pcSD6wbjj2NeoHyDBqoDiALkZaAnaiCT8qe1IouCCW7ULs0i96DKVKi.gG2/';
-
     // |-- SSL --|
 
-    const SSL = true;
+    const SSL = false;
 
     // |-- Errors --|
     const httpErrors = [
@@ -90,7 +86,7 @@ class Settings {
 
     // |-- Extra Functions --|
 
-    public static function getFullDomain() { return 'https' . "://" . $_SERVER["HTTP_HOST"]; }
+    public static function getFullDomain() { return 'http' . "://" . $_SERVER["HTTP_HOST"]; }
     public static function isApiModeAllowed() {
         foreach (Settings::apiModeAllowForUrls as $url) {
             if (str_contains(Settings::getFullDomain() . $_SERVER["REQUEST_URI"], Settings::getFullDomain() . $url)) {

@@ -4,6 +4,8 @@
     HtmlController::domain();
     HtmlController::auther();
     HtmlController::localSettings();
+    HtmlController::footer();
+    HtmlController::loader();
     if (!isset($scripts)) {
         die();
     }
@@ -23,10 +25,12 @@
     <?php echo HtmlController::global_styles() ?>
     <link rel="stylesheet" href="<?php echo $styles ?>header.css">
     <link rel="stylesheet" href="<?php echo $styles ?>style.css">
+    <?php echo HtmlController::footer() ?>
+    <?php echo HtmlController::loader() ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>DataBase Home</title>
+    <title>DataBase</title>
 </head>
 
 <body>
@@ -64,18 +68,31 @@
         <div class="container aboutC">
             <div class="contentAbout">
                 <div class="hAbout">Hello there! I'm <span>
-                        <p>Nons8ns</p>
-                        <p>Web Developer</p>
+                        <p id="nickname">Nons8ns</p>
+                        <p id="hobby">Web Developer</p>
                     </span></div>
                 <div class="tAbout">Programs' structure is an art. Art for those, who love programming and computers. I hope that one day I will become a master of this art.</div>
                 <a href="https://nextjs-boilerplate-three-blond-44.vercel.app" class="aAbout">See my About website</a>
             </div>
-            <img src="<?php echo HtmlController::domain() ?>static/images/about_2.svg" />
+            <img src="<?php echo HtmlController::domain() ?>static/images/about_4.svg" />
         </div>
     </div>
 
     <div class="dataBase">
         <div></div>
+    </div>
+
+    <div class="footer"></div>
+
+    <div id="Icons" class="icons">
+        <div style="display: none;" id="loader" class="loader">
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+        </div>
     </div>
 
     <script src="<?php echo $scripts ?>main.js"></script>

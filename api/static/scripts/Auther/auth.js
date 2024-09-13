@@ -1,33 +1,47 @@
 
+let functionsAUTH = {
+    auth: true
+}
+
 class Auth {
     static async check(returnUserData = false, location = '') {
-        try {
-            const data = new URLSearchParams()
-            data.append('route', window.location.pathname + location)
+        if (functionsAUTH.auth) {
+            functionsAUTH.auth = false
 
-            let result = await http.get('api/auth', data)
-    
-            if (result.response.ok && result.data.status === true) {
-                localStorage.setItem('user', JSON.stringify(result.data.user))
+            try {
+                const data = new URLSearchParams()
+                data.append('route', window.location.pathname + location)
 
-                if (returnUserData) {
-                    return result.data.user
-                } else {
-                    return true
+                let result = await http.get('api/auth', data)
+
+                if (result.response.ok && result.data.status === true) {
+                    localStorage.setItem('user', JSON.stringify(result.data.user))
+
+                    functionsAUTH.auth = true
+
+                    if (returnUserData) {
+                        return result.data.user
+                    } else {
+                        return true
+                    }
                 }
-            }
 
-            if (localStorage.getItem('user') !== null) {
-                localStorage.removeItem('user')
-            }
-            
-            return false
-        } catch (error) {
-            if (localStorage.getItem('user') !== null) {
-                localStorage.removeItem('user')
-            }
+                if (localStorage.getItem('user') !== null) {
+                    localStorage.removeItem('user')
+                }
 
-            return false
+                functionsAUTH.auth = true
+
+                return false
+            } catch (error) {
+                if (localStorage.getItem('user') !== null) {
+                    localStorage.removeItem('user')
+                }
+
+                functionsAUTH.auth = true
+
+                return false
+            }
         }
     }
 }

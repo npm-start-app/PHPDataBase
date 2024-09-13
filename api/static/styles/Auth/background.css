@@ -47,6 +47,9 @@
 
     background-color: #ffc200;
 }
+.box-background--blueH {
+    background-color: #2c49db;
+}
 
 .box-background--white {
     /* background-color: #ffffff; */
@@ -100,6 +103,30 @@
     justify-content: center;
 }
 
+.transition {
+    transition: background-color 0.5s;
+}
+
+/* Image Variant */
+
+.animationRightLeftI {
+    transform: translateX(-900px);
+}
+
+.animationLeftRightI {
+    transform: translateX(100px);
+}
+
+.tans3sI {
+    transform: translateX(800px);
+}
+
+.tans4sI {
+    transform: translateX(0px);
+}
+
+/* Video Animation */
+
 .animationRightLeft {
     animation: animationRightLeft 2s ease-in-out infinite;
 }
@@ -114,10 +141,6 @@
 
 .tans4s {
     animation: animationLeftRight 4s ease-in-out infinite;
-}
-
-.transition {
-    transition: background-color 0.5s;
 }
 
 @keyframes animationLeftRight {

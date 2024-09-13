@@ -9,6 +9,8 @@ try {
     HtmlController::domain();
     HtmlController::auther();
     HtmlController::localSettings();
+    HtmlController::footer();
+    HtmlController::loader();
     if (!isset($scripts)) {
         die();
     }
@@ -29,13 +31,15 @@ try {
     <link rel="stylesheet" href="<?php echo $styles ?>cmd.css">
     <link rel="stylesheet" href="<?php echo $styles ?>explorer.css">
     <link rel="stylesheet" href="<?php echo $styles ?>header.css">
+    <?php echo HtmlController::footer() ?>
+    <?php echo HtmlController::loader() ?>
     <script src="https://kit.fontawesome.com/e69856d59d.js" crossorigin="anonymous"></script>
-    <title>DataBase Cmd</title>
+    <title>Cmd</title>
 </head>
 
 <body>
     <input onchange="_doSubFunc()" id='inputFile' type="file" style="display: none;" />
-    <input id="csrf" style="display: none;" disabled hidden readonly value="<?php echo Token::csrf(SessionData::$user['csrfSecret']); ?>" />
+    <input id="csrf" style="display: none;" disabled hidden readonly value="<?php echo $data['csrf']; ?>" />
 
     <div class="navbar">
         <div class="container header">
@@ -89,6 +93,19 @@ try {
             <div mime="application/vnd.google-apps.folder" onclick="path_onclick(this)" id="root" class="_Spath">
                 DataBase - root
             </div>
+        </div>
+    </div>
+
+    <div class="footer"></div>
+
+    <div id="Icons" class="icons">
+        <div style="display: none;" id="loader" class="loader">
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
+            <div class="sliceL"></div>
         </div>
     </div>
 

@@ -8,4 +8,5 @@ class SessionData {
     public static $token;
     public static $profileId;
     public static $redirectToMain = false;
+    public static $userProfile = false;
 }

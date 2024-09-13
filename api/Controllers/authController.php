@@ -169,6 +169,7 @@ class AuthController
         $newToken = Token::accessToken($login, $role, Roles::role($role), $accessTokenSecret);
         $csrfSecret = Token::token(Token::SHA512);
         RD::setValue($profileId, json_encode([
+            'csrf' => Token::csrf($csrfSecret),
             'accessToken' => $newToken,
             'csrfSecret' => $csrfSecret,
             'accessTokenSecret' => $accessTokenSecret
@@ -236,6 +237,7 @@ class AuthController
         $newToken = Token::accessToken($login, $result['role'], $result['roots'], $accessTokenSecret);
         $csrfSecret = Token::token(Token::SHA512);
         RD::setValue($profileId, json_encode([
+            'csrf' => Token::csrf($csrfSecret),
             'accessToken' => $newToken,
             'csrfSecret' => $csrfSecret,
             'accessTokenSecret' => $accessTokenSecret
@@ -329,7 +331,7 @@ class AuthController
 
     private static function checkPassword($password)
     {
-        if (strlen($password) <= 6) {
+        if (strlen($password) <= 5) {
             Route::response([
                 "status" => false,
                 "message" => 'Password is too short.'

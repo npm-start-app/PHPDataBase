@@ -85,6 +85,8 @@
     line-height: inherit;
     white-space: nowrap;
     font-weight: bold;
+    text-decoration: none;
+    color: white;
 
     transition: all 0.4s ease;
 }

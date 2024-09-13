@@ -1,11 +1,26 @@
 
+let functions = {
+    logout: true
+}
+
+const disableExitButton = (buttonId) => {
+    document.getElementById('loader').style.display = 'block'
+    document.getElementById(buttonId).classList.add('disabled')
+    document.getElementById(buttonId).onclick = null
+}
+
 const logout = async () => {
-    await http.get('api/auth/logout/')
+    if (functions.logout) {
+        functions.logout = false
+        disableExitButton('logoutI')
 
-    localStorage.removeItem("user")
-    localStorage.removeItem("role")
+        await http.get('api/auth/logout/')
 
-    window.location.href = '/'
+        localStorage.removeItem("user")
+        localStorage.removeItem("role")
+
+        window.location.href = '/'
+    }
 }
 
 if (localStorage.getItem('user') !== null) {

@@ -1,12 +1,10 @@
 <?php
 use WBlib\Route;
 
-$_dir_ = __DIR__;
-
-include_once ($_dir_ . "/lib/main.php");
-include_once ($_dir_ . "/Roles/roles.php");
-include_once ($_dir_ . "/Middlewares/main.php");
-include_once ($_dir_ . "/Controllers/main.php");
-include_once ($_dir_ . "/Routes/routes.php");
+include_once (__DIR__ . "/lib/main.php");
+include_once (__DIR__ . "/Roles/roles.php");
+include_once (__DIR__ . "/Middlewares/main.php");
+include_once (__DIR__ . "/Controllers/main.php");
+include_once (__DIR__ . "/Routes/routes.php");
 
 Route::route();
