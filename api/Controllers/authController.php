@@ -28,6 +28,8 @@ class AuthController
                 "status" => true
             ];
         } catch (Throwable $e) {
+            
+
             Error::e500();
         }
     }
@@ -96,6 +98,8 @@ class AuthController
             } else {
                 echo "Init error";
             }
+
+            
         } catch (Throwable $th) {
             Error::e500();
         }
@@ -152,8 +156,21 @@ class AuthController
             ], Error::BadRequest);
         }
 
-        static::checkLogin($_POST['login']);
-        static::checkPassword($_POST['password']);
+        $checkLogin = static::checkLogin($_POST['login']);
+        if (!$checkLogin['status']) {
+            Route::response([
+                "status" => false,
+                "message" => $checkLogin['message']
+            ], Error::BadRequest);
+        }
+
+        $checkPassword = static::checkPassword($_POST['password']);
+        if (!$checkPassword['status']) {
+            Route::response([
+                "status" => false,
+                "message" => $checkPassword['message']
+            ], Error::BadRequest);
+        }
 
         $profileId = Token::token(Token::MD5);
         RD::setValue($login, json_encode([
@@ -304,58 +321,79 @@ class AuthController
     private static function checkLogin($login)
     {
         if (strlen($login) <= 2) {
-            Route::response([
-                "status" => false,
-                "message" => 'Login is too short.'
-            ], Error::BadRequest);
+            return [
+                'status' => false,
+                'message' => 'Login is too short.'
+            ];
         }
         if (strlen($login) >= 40) {
-            Route::response([
-                "status" => false,
-                "message" => 'Login is too long.'
-            ], Error::BadRequest);
+            return [
+                'status' => false,
+                'message' => 'Login is too long.'
+            ];
         }
         if ($login != strip_tags($login)) {
-            Route::response([
-                "status" => false,
-                "message" => 'Login contains invalid data.'
-            ], Error::BadRequest);
+            return [
+                'status' => false,
+                'message' => 'Login contains invalid data.'
+            ];
         }
         if (RD::getValue($login, Settings::userPrefix, true)) {
-            Route::response([
-                "status" => false,
-                "message" => 'Login is in usage already.'
-            ], Error::BadRequest);
+            return [
+                'status' => false,
+                'message' => 'Login is in usage already.'
+            ];
         }
+
+        return [
+            'status' => true
+        ];
     }
 
     private static function checkPassword($password)
     {
         if (strlen($password) <= 5) {
-            Route::response([
-                "status" => false,
-                "message" => 'Password is too short.'
-            ], Error::BadRequest);
+            return [
+                'status' => false,
+                'message' => 'Password is too short.'
+            ];
         }
         if (strlen($password) >= 40) {
-            Route::response([
-                "status" => false,
-                "message" => 'Password is too long.'
-            ], Error::BadRequest);
+            return [
+                'status' => false,
+                'message' => 'Password is too long.'
+            ];
         }
         if ($password != strip_tags($password)) {
-            Route::response([
-                "status" => false,
-                "message" => 'Password contains invalid data.'
-            ], Error::BadRequest);
+            return [
+                'status' => false,
+                'message' => 'Password contains invalid data.'
+            ];
         }
+
+        return [
+            'status' => true
+        ];
     }
 
     public static function EditUserData()
     {
         if ($_POST['login'] and $_POST['password']) {
-            static::checkLogin($_POST['login']);
-            static::checkPassword($_POST['password']);
+            $checkLogin = static::checkLogin($_POST['login']);
+            if (!$checkLogin['status']) {
+                Route::response([
+                    "status" => false,
+                    "message" => $checkLogin['message']
+                ], Error::BadRequest);
+            }
+
+            $checkPassword = static::checkPassword($_POST['password']);
+            if (!$checkPassword['status']) {
+                Route::response([
+                    "status" => false,
+                    "message" => $checkPassword['message']
+                ], Error::BadRequest);
+            }
 
             $oldUser = RD::getValue(SessionData::$user['login'], Settings::userPrefix, true);
             if (!$oldUser) {
@@ -388,7 +426,13 @@ class AuthController
                 'roots' => json_decode($oldUser, true)['roots']
             ];
         } else if ($_POST['password']) {
-            static::checkPassword($_POST['password']);
+            $checkPassword = static::checkPassword($_POST['password']);
+            if (!$checkPassword['status']) {
+                Route::response([
+                    "status" => false,
+                    "message" => $checkPassword['message']
+                ], Error::BadRequest);
+            }
 
             $oldUser = RD::getValue(SessionData::$user['login'], Settings::userPrefix, true);
             if (!$oldUser) {
@@ -408,7 +452,13 @@ class AuthController
                 'roots' => json_decode($oldUser, true)['roots']
             ];
         } else {
-            static::checkLogin($_POST['login']);
+            $checkLogin = static::checkLogin($_POST['login']);
+            if (!$checkLogin['status']) {
+                Route::response([
+                    "status" => false,
+                    "message" => $checkLogin['message']
+                ], Error::BadRequest);
+            }
 
             $oldUser = RD::getValue(SessionData::$user['login'], Settings::userPrefix, true);
             if (!$oldUser) {

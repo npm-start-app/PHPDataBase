@@ -5,16 +5,16 @@ use WBlib\Error\Error;
 use WBlib\ParamsChecker;
 use WBlib\Route;
 
+// 'WBlib\Route::useRedis' -- Open Redis Connection
+
 if (array_key_exists('1', explode('/', $_SERVER['REQUEST_URI']))) {
     if (explode('/', $_SERVER['REQUEST_URI'])[1] === 'static') {
         header((substr(__DIR__ . '/..' . $_SERVER['REQUEST_URI'], -3) === 'css') ? "Content-Type: text/css" : "Content-Type: " . mime_content_type(__DIR__ . '/..' . $_SERVER['REQUEST_URI']));
         echo file_get_contents(__DIR__ . '/..' . $_SERVER['REQUEST_URI']);
 
-        die();
+        exit();
     } 
 }
-
-// 'WBlib\Route::useRedis' -- Open Redis Connection
 
 class Routes
 {
@@ -36,7 +36,8 @@ class Routes
 
 class ClientRoutes // All possible client routes
 {
-    public static function getRoots($route) {
+    public static function getRoots($route)
+    {
         $routes = [
             '/' => [
                 'auth' => false,
@@ -68,41 +69,73 @@ class ClientRoutes // All possible client routes
 
 Route::get(Routes::Home, "HtmlController::Home");
 Route::get(Routes::Auth, 'WBlib\Route::useRedis', "HtmlController::Auth");
-Route::get(Routes::Account,'WBlib\Route::useRedis', function () {SessionData::$redirectToMain = true; AuthChecker::profileIdExistance(); AuthChecker::tokenExistance();},
- function () {AuthChecker::checkAuth();}, "HtmlController::Account");
-Route::get(Routes::Cmd, 'WBlib\Route::useRedis', function () {SessionData::$redirectToMain = true; AuthChecker::profileIdExistance(); AuthChecker::tokenExistance();},
- function () {AuthChecker::checkAuth(50);}, "HtmlController::Cmd");
+Route::get(
+    Routes::Account,
+    function () {
+        SessionData::$redirectToMain = true;
+        AuthChecker::profileIdExistance();
+        AuthChecker::tokenExistance();
+    },
+    'WBlib\Route::useRedis',
+    function () {
+        AuthChecker::checkAuth();
+    },
+    "HtmlController::Account"
+);
+Route::get(
+    Routes::Cmd,
+    function () {
+        SessionData::$redirectToMain = true;
+        AuthChecker::profileIdExistance();
+        AuthChecker::tokenExistance();
+    },
+    'WBlib\Route::useRedis',
+    function () {
+        AuthChecker::checkAuth(50);
+    },
+    "HtmlController::Cmd"
+);
 
 # |--- Api Get Routes ---|
 
 Route::get(
     Routes::Api_getPass,
-    'WBlib\Route::useRedis',
-    function () {AuthChecker::profileIdExistance();},
-    function () {AuthChecker::tokenExistance();},
+    function () {
+        AuthChecker::profileIdExistance();
+    },
+    function () {
+        AuthChecker::tokenExistance();
+    },
     function () {
         $conf = [
             ParamsChecker::HEADERS => ['HTTP_CSRF']
         ];
         ParamsChecker::Existance($conf);
     },
+    'WBlib\Route::useRedis',
     function () {
         AuthChecker::checkAuth();
     },
-    function () { AuthChecker::csrf(); },
+    function () {
+        AuthChecker::csrf();
+    },
     "AuthController::GetPass"
 );
 Route::get(
     Routes::Api_Auth,
-    'WBlib\Route::useRedis',
-    function () {AuthChecker::profileIdExistance();},
-    function () {AuthChecker::tokenExistance();},
+    function () {
+        AuthChecker::profileIdExistance();
+    },
+    function () {
+        AuthChecker::tokenExistance();
+    },
     function () {
         $conf = [
             ParamsChecker::DATA => ['route']
         ];
         ParamsChecker::Existance($conf);
     },
+    'WBlib\Route::useRedis',
     function () {
         AuthChecker::checkAuth();
     },
@@ -112,7 +145,7 @@ Route::get(
         if (SessionData::$user['roots'] < $routeSett['roots']) {
             Error::e403();
         }
-    
+
         return [
             'status' => true,
             'user' => SessionData::$user
@@ -121,20 +154,24 @@ Route::get(
 );
 Route::get(
     Routes::Api_Logout,
+    function () {
+        AuthChecker::profileIdExistance();
+    },
+    function () {
+        AuthChecker::tokenExistance();
+    },
     'WBlib\Route::useRedis',
-    function () {AuthChecker::profileIdExistance();},
-    function () {AuthChecker::tokenExistance();},
     "AuthController::Logout"
 );
 Route::get(
     Routes::Api_CheckToken,
-    'WBlib\Route::useRedis',
     function () {
         $conf = [
             ParamsChecker::DATA => ['token']
         ];
         ParamsChecker::Existance($conf);
     },
+    'WBlib\Route::useRedis',
     'AuthController::CheckToken'
 );
 
@@ -144,9 +181,12 @@ Route::get(
 
 Route::post(
     Routes::Api_editUserData,
-    'WBlib\Route::useRedis',
-    function () {AuthChecker::profileIdExistance();},
-    function () {AuthChecker::tokenExistance();},
+    function () {
+        AuthChecker::profileIdExistance();
+    },
+    function () {
+        AuthChecker::tokenExistance();
+    },
     function () {
         $conf = [
             ParamsChecker::DATA => ['login', 'password'],
@@ -154,17 +194,23 @@ Route::post(
         ];
         ParamsChecker::Existance($conf);
     },
+    'WBlib\Route::useRedis',
     function () {
         AuthChecker::checkAuth();
     },
-    function () {AuthChecker::csrf();},
+    function () {
+        AuthChecker::csrf();
+    },
     "AuthController::EditUserData"
 );
 Route::post(
     Routes::Api_cmd,
-    'WBlib\Route::useRedis',
-    function () {AuthChecker::profileIdExistance();},
-    function () {AuthChecker::tokenExistance();},
+    function () {
+        AuthChecker::profileIdExistance();
+    },
+    function () {
+        AuthChecker::tokenExistance();
+    },
     function () {
         $conf = [
             ParamsChecker::DATA => ['command'],
@@ -172,40 +218,48 @@ Route::post(
         ];
         ParamsChecker::Existance($conf);
     },
+    'WBlib\Route::useRedis',
     function () {
         AuthChecker::checkAuth(50);
     },
-    function () {AuthChecker::csrf();},
+    function () {
+        AuthChecker::csrf();
+    },
     "Cmd::do"
 );
 Route::post(
     Routes::Api_Login,
-    'WBlib\Route::useRedis',
     function () {
         $conf = [
             ParamsChecker::DATA => ['login', 'password']
         ];
         ParamsChecker::Existance($conf);
     },
+    'WBlib\Route::useRedis',
     "AuthController::Login"
 );
 Route::post(
     Routes::Api_SignIn,
-    'WBlib\Route::useRedis',
-    function () {AuthChecker::tokenExistance(false, true);},
+    function () {
+        AuthChecker::tokenExistance(false, true);
+    },
     function () {
         $conf = [
             ParamsChecker::DATA => ['login', 'password']
         ];
         ParamsChecker::Existance($conf);
     },
+    'WBlib\Route::useRedis',
     "AuthController::SignIn"
 );
 Route::post(
     Routes::Api_TokenGeneration,
-    'WBlib\Route::useRedis',
-    function () {AuthChecker::profileIdExistance();},
-    function () {AuthChecker::tokenExistance();},
+    function () {
+        AuthChecker::profileIdExistance();
+    },
+    function () {
+        AuthChecker::tokenExistance();
+    },
     function () {
         $conf = [
             ParamsChecker::DATA => ['token'],
@@ -213,9 +267,12 @@ Route::post(
         ];
         ParamsChecker::Existance($conf);
     },
+    'WBlib\Route::useRedis',
     function () {
         AuthChecker::checkAuth(50);
     },
-    function () {AuthChecker::csrf();},
+    function () {
+        AuthChecker::csrf();
+    },
     'AuthController::TokenGeneration'
 );

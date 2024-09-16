@@ -14,6 +14,7 @@ class HtmlController
     public static function auther() {return static::domain() . 'static/scripts/Auther/auth.js';}
     public static function footer() {return '<link rel="stylesheet" href="' . static::domain() . 'static/styles/footer.css">';}
     public static function loader() {return '<link rel="stylesheet" href="' . static::domain() . 'static/styles/loader.css">';}
+    public static function icon() {return '<link rel="icon" type="image/png" href="' . static::domain() . 'static/images/database-solid.png">';}
 
     public static function Home()
     {

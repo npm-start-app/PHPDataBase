@@ -23,7 +23,6 @@ class AuthChecker
                 "message" => "Auth was failed."
             ], Error::BadRequest);
 
-
             return false;
         }
         $result = json_decode($result, true);
@@ -59,7 +58,6 @@ class AuthChecker
                 "status" => false,
                 "message" => "Auth was failed."
             ], Error::Forbidden);
-
 
             return false;
         }

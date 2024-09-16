@@ -19,6 +19,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php echo HtmlController::icon() ?>
     <script src="<?php echo HtmlController::localSettings() ?>"></script>
     <script src="<?php echo HtmlController::http() ?>"></script>
     <script src="<?php echo HtmlController::auther() ?>"></script>

@@ -49,7 +49,7 @@ class Cmd
 
     public static function _help()
     {
-        $jsonString = file_get_contents(__DIR__ . '/../cmdCommands.json');
+        $jsonString = file_get_contents('./cmdCommands.json');
 
         $data = json_decode($jsonString, true);
 
@@ -131,6 +131,7 @@ class Cmd
 
         $start_D = microtime(true);
         $url = static::driveDomain . 'drive/ping';
+        
         $headers = [
             'token: ' . SessionData::$user['token'],
         ];
@@ -145,6 +146,7 @@ class Cmd
                 'referrerPolicy' => 'no-referrer'
             ]
         ];
+        
         $context = stream_context_create($options);
         $response = file_get_contents($url, false, $context);
         $end_D = microtime(true);

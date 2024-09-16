@@ -10,24 +10,16 @@ class Route
     public static $get = [];
     public static $post = [];
 
-    public static function softExit() {
-        if (SessionData::$redis) {
-            RD::close();
-        }
-    }
     public static function useRedis (){
         SessionData::$redis = true;
 
         RD::create();
     }
+
     public static function response($result, $code = 200)
     {
-        if (SessionData::$redis) {
-            RD::close();
-        }
-        
         http_response_code($code);
-        
+
         if (gettype($result) === "array") {
             if (Settings::isApiModeAllowed()) { header('Content-Type: application/json; charset=utf-8'); }
 
@@ -38,7 +30,7 @@ class Route
             echo $result;
         }
 
-        die();
+        exit();
     }
 
     public static function get($route, ...$params)
@@ -110,11 +102,9 @@ class Route
         } elseif ($_SERVER["REQUEST_METHOD"] === "HEAD") {
             http_response_code(200);
 
-            die();
+            exit();
         } else {
             Error::e501();
         }
     }
 }
-
-// register_shutdown_function('WBlib\Route::softExit');

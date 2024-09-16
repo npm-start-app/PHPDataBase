@@ -4,7 +4,7 @@ namespace WBlib;
 class Settings {
     // |-- SSL --|
 
-    const SSL = true;
+    const SSL = false;
 
     // |-- Errors --|
     const httpErrors = [
@@ -86,7 +86,7 @@ class Settings {
 
     // |-- Extra Functions --|
 
-    public static function getFullDomain() { return 'https' . "://" . $_SERVER["HTTP_HOST"]; }
+    public static function getFullDomain() { return 'http' . "://" . $_SERVER["HTTP_HOST"]; }
     public static function isApiModeAllowed() {
         foreach (Settings::apiModeAllowForUrls as $url) {
             if (str_contains(Settings::getFullDomain() . $_SERVER["REQUEST_URI"], Settings::getFullDomain() . $url)) {
