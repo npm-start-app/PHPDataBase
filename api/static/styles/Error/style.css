@@ -27,10 +27,6 @@ html, body {
     border-radius: 5px 30px 5px 5px;
 }
 
-img {
-    height: 500px;
-}
-
 .loader {
     --uib-size: 200px;
     --uib-color: white;
