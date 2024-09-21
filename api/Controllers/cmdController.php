@@ -5,7 +5,7 @@ use WBlib\Route;
 
 class Cmd
 {
-    const driveDomain = 'http://localhost:1111/';
+    const driveDomain = 'https://drive-snowy.vercel.app/';
 
     const COMMANDS = [
         '/stats' => 'Cmd::_stats',
@@ -19,7 +19,8 @@ class Cmd
         '/help' => 'Cmd::_help'
     ];
 
-    public static function _drive_getFile($params) {
+    public static function _drive_getFile($params)
+    {
         Route::response([
             "status" => true,
             "result" => 'Calling ' . static::driveDomain . 'drive/getFile',
@@ -29,11 +30,16 @@ class Cmd
             "typeData" => 'url',
             "url" => 'drive/getFile',
             "domain" => static::driveDomain,
-            "file" => false
+            "file" => false,
+            "headers" => [
+                "driveToken" => SessionData::$userProfile['driveToken'],
+                "profileId" => SessionData::$profileId
+            ]
         ]);
     }
 
-    public static function _drive_checkStructure() {
+    public static function _drive_checkStructure()
+    {
         Route::response([
             "status" => true,
             "result" => 'Calling ' . static::driveDomain . 'drive/checkStructure',
@@ -43,7 +49,11 @@ class Cmd
             "typeData" => 'url',
             "url" => 'drive/checkStructure',
             "domain" => static::driveDomain,
-            "file" => false
+            "file" => false,
+            "headers" => [
+                "driveToken" => SessionData::$userProfile['driveToken'],
+                "profileId" => SessionData::$profileId
+            ]
         ]);
     }
 
@@ -80,7 +90,11 @@ class Cmd
             "typeData" => 'url',
             "url" => 'init/drive',
             "domain" => static::driveDomain,
-            "file" => false
+            "file" => false,
+            "headers" => [
+                "driveToken" => SessionData::$userProfile['driveToken'],
+                "profileId" => SessionData::$profileId
+            ]
         ]);
     }
 
@@ -95,7 +109,11 @@ class Cmd
             "typeData" => 'url',
             "url" => 'drive/getFileList',
             "domain" => static::driveDomain,
-            "file" => false
+            "file" => false,
+            "headers" => [
+                "driveToken" => SessionData::$userProfile['driveToken'],
+                "profileId" => SessionData::$profileId
+            ]
         ]);
     }
 
@@ -113,7 +131,11 @@ class Cmd
             'typeData' => 'formData',
             'url' => 'drive/createFile',
             'domain' => static::driveDomain,
-            'file' => true
+            'file' => true,
+            "headers" => [
+                "driveToken" => SessionData::$userProfile['driveToken'],
+                "profileId" => SessionData::$profileId
+            ]
         ]);
     }
 
@@ -127,13 +149,16 @@ class Cmd
         $start_R = microtime(true);
         $result = RD::$conn->ping();
         $end_R = microtime(true);
-        if (!$result) { $redis = 'false'; }
+        if (!$result) {
+            $redis = 'false';
+        }
 
         $start_D = microtime(true);
         $url = static::driveDomain . 'drive/ping';
-        
+
         $headers = [
-            'token: ' . SessionData::$user['token'],
+            'drivetoken: ' . SessionData::$userProfile['driveToken'],
+            'profileid: ' . SessionData::$profileId
         ];
         $options = [
             'http' => [
@@ -146,19 +171,38 @@ class Cmd
                 'referrerPolicy' => 'no-referrer'
             ]
         ];
-        
+
         $context = stream_context_create($options);
         $response = file_get_contents($url, false, $context);
         $end_D = microtime(true);
-        if (!$response) { $drive = 'false'; }
+        if (!$response) {
+            $drive = 'false';
+        }
 
         SessionData::$set_error_handler = true;
 
         $redisMS = ($redis === 'true') ? intval(($end_R - $start_R) * 1000) . 'ms' : '-ms';
         $driveMS = ($drive === 'true') ? intval(($end_D - $start_D) * 1000) . 'ms' : '-ms';
 
-        return [3, '{', 0, 3, 3, 3, 3, 'Redis - ' . $redis . ' | ' . $redisMS, 0, 3, 3, 3, 3,
-             'Google Drive - ' . $drive . ' | ' . $driveMS, 0, 3, '}'];
+        return [
+            3,
+            '{',
+            0,
+            3,
+            3,
+            3,
+            3,
+            'Redis - ' . $redis . ' | ' . $redisMS,
+            0,
+            3,
+            3,
+            3,
+            3,
+            'Google Drive - ' . $drive . ' | ' . $driveMS,
+            0,
+            3,
+            '}'
+        ];
     }
 
     public static function do()

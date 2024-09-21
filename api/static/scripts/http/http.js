@@ -8,7 +8,7 @@ class http {
     }
 
     static getDriveDomain() {
-        return 'http://localhost:1111/'
+        return 'https://drive-snowy.vercel.app/'
     }
 
     static getToken() {
@@ -32,7 +32,7 @@ class http {
         }
     }
 
-    static async post(url, data, domain = this.getDomain()) {
+    static async post(url, data, domain = this.getDomain(), headers = null) {
         if (requests > maxHTTPrequests) {
             return new Error("Request limit")
         }
@@ -43,6 +43,8 @@ class http {
             let contentType = (data instanceof FormData) ? null
                 : ((this.isJSON(data)) ? 'application/json' : 'application/x-www-form-urlencoded')
 
+            if (headers && contentType) headers['Content-Type'] = contentType
+            
             let response
 
             if (contentType === null) {
@@ -51,7 +53,7 @@ class http {
                     mode: "cors",
                     cache: "no-cache",
                     credentials: "same-origin",
-                    headers: {
+                    headers: (headers) ? headers : {
                         'token': this.getToken(),
                         'profileId': this.getProfileId(),
                         'csrf': this.getCsrf(),
@@ -65,7 +67,7 @@ class http {
                     mode: "cors",
                     cache: "no-cache",
                     credentials: "same-origin",
-                    headers: {
+                    headers: (headers) ? headers : {
                         'token': this.getToken(),
                         'profileId': this.getProfileId(),
                         'csrf': this.getCsrf(),
@@ -91,7 +93,7 @@ class http {
         }
     }
 
-    static async get(url, data = null, domain = this.getDomain()) {
+    static async get(url, data = null, domain = this.getDomain(), headers = null) {
         if (requests > maxHTTPrequests) {
             return new Error("Request limit")
         }
@@ -99,12 +101,14 @@ class http {
         requests++
 
         try {
+            if (headers) headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
             const response = await fetch(domain + url + ((data === null) ? '' : ('?' + data)), {
                 method: "GET",
                 mode: "cors",
                 cache: "no-cache",
                 credentials: "same-origin",
-                headers: {
+                headers: (headers) ? headers : {
                     'token': this.getToken(),
                     'profileId': this.getProfileId(),
                     'csrf': this.getCsrf(),

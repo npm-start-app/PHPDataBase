@@ -7,15 +7,6 @@ use WBlib\Route;
 
 // 'WBlib\Route::useRedis' -- Open Redis Connection
 
-if (array_key_exists('1', explode('/', $_SERVER['REQUEST_URI']))) {
-    if (explode('/', $_SERVER['REQUEST_URI'])[1] === 'static') {
-        header((substr(__DIR__ . '/..' . $_SERVER['REQUEST_URI'], -3) === 'css') ? "Content-Type: text/css" : "Content-Type: " . mime_content_type(__DIR__ . '/..' . $_SERVER['REQUEST_URI']));
-        echo file_get_contents(__DIR__ . '/..' . $_SERVER['REQUEST_URI']);
-
-        exit();
-    } 
-}
-
 class Routes
 {
     const Home = "/";
@@ -32,6 +23,7 @@ class Routes
     const Api_testRequest = "/api/test";
     const Api_getPass = "/api/auth/getPass";
     const Api_editUserData = "/api/auth/editUserData";
+    const Api_getDriveToken = "/api/auth/driveToken";
 }
 
 class ClientRoutes // All possible client routes
@@ -98,6 +90,29 @@ Route::get(
 
 # |--- Api Get Routes ---|
 
+Route::get(
+    Routes::Api_getDriveToken,
+    function () {
+        AuthChecker::profileIdExistance();
+    },
+    function () {
+        AuthChecker::tokenExistance();
+    },
+    function () {
+        $conf = [
+            ParamsChecker::HEADERS => ['HTTP_CSRF']
+        ];
+        ParamsChecker::Existance($conf);
+    },
+    'WBlib\Route::useRedis',
+    function () {
+        AuthChecker::checkAuth();
+    },
+    function () {
+        AuthChecker::csrf();
+    },
+    "AuthController::getDriveToken"
+);
 Route::get(
     Routes::Api_getPass,
     function () {

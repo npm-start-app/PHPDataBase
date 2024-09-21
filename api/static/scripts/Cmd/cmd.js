@@ -100,6 +100,28 @@ let _do = async (command) => {
             }
             if (result.response.ok) {
                 if (result.data.recall) {
+                    let _headers = {}
+
+                    if (result.data.headers) {
+                        for (const param in result.data.headers) {
+                            _headers[param] = result.data.headers[param]
+                        }
+                    } else {
+                        await Cmd.print([
+                            0, 0,
+                            'Server>' + 'Wrong response.',
+                            0, 0,
+                            Cmd.user.login + '>',
+                            1
+                        ], () => {
+                            Cmd.canPrint = true
+                        })
+
+                        functionsCMD.do = true
+        
+                        return;
+                    }
+                    
                     if (result.data.file) {
                         await Cmd.print([
                             0, 0,
@@ -128,7 +150,7 @@ let _do = async (command) => {
                         let _result
 
                         try {
-                            _result = await http[result.data.method](result.data.url, _data, result.data.domain)
+                            _result = await http[result.data.method](result.data.url, _data, result.data.domain, _headers)
                         } catch (error) {
                         }
 

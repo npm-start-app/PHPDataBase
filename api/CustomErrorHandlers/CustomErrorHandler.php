@@ -10,7 +10,10 @@ class CustomErrorHandler
         if (SessionData::$set_error_handler) {
             Route::response(
                 [
-                    'status' => false
+                    'status' => false,
+                    'message' => $errstr,
+                    'error' => $errline,
+                    'file' => $errfile
                 ],
                 500
             );
@@ -24,7 +27,8 @@ class CustomErrorHandler
         if ($error !== null && $error['type'] === E_ERROR) {
             Route::response(
                 [
-                    'status' => false
+                    'status' => false,
+                    'message' => $error['message']
                 ],
                 500
             );

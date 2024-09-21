@@ -119,8 +119,9 @@ class Error
     public static function e404($Umsg = null)
     {
         $code = static::NotFound;
+        $request_uri = (strlen($_SERVER["REQUEST_URI"]) >= 20) ? substr($_SERVER["REQUEST_URI"], 0, 10) . "..." . substr($_SERVER["REQUEST_URI"], -5, 5) : $_SERVER["REQUEST_URI"];
         $msg = ($Umsg !== null) ? $Umsg :
-            "We can not find the route " . $_SERVER["REQUEST_METHOD"] . " - \"" . $_SERVER["REQUEST_URI"] . "\".";
+            "We can not find the route " . $_SERVER["REQUEST_METHOD"] . " - \"" . $request_uri . "\".";
         $Hmsg = (Settings::httpErrors[$code]["html"]["msg"]) ?
             $msg
             : "";

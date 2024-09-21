@@ -89,10 +89,22 @@ const getFolderFiles = async (folderId = 'root') => {
     if (functionsEXP.getfolderfiles) {
         functionsEXP.getfolderfiles = false
         
+        let driveToken = await http.get('api/auth/driveToken')
+        if (!(driveToken.data.status === true && driveToken.response.ok)) {
+            console.log('drive token getting error')
+
+            return
+        }
+
+        const headers = {
+            drivetoken: driveToken.data.driveToken,
+            profileid: driveToken.data.profileId
+        }
+
         const data = new URLSearchParams()
         data.append('folderId', folderId)
 
-        let result = await http.get('drive/getFolderFiles', data, http.getDriveDomain())
+        let result = await http.get('drive/getFolderFiles', data, http.getDriveDomain(), headers)
 
         let folderFiles = result.data.result
         let _newFolderFiles = {}

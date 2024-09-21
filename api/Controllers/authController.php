@@ -185,11 +185,13 @@ class AuthController
         $accessTokenSecret = Token::token(Token::SHA512);
         $newToken = Token::accessToken($login, $role, Roles::role($role), $accessTokenSecret);
         $csrfSecret = Token::token(Token::SHA512);
+        $driveToken = Token::token(Token::MD5);
         RD::setValue($profileId, json_encode([
             'csrf' => Token::csrf($csrfSecret),
             'accessToken' => $newToken,
             'csrfSecret' => $csrfSecret,
-            'accessTokenSecret' => $accessTokenSecret
+            'accessTokenSecret' => $accessTokenSecret,
+            'driveToken' => $driveToken
         ]), Settings::profilePrefix);
 
         $user = [
@@ -253,11 +255,13 @@ class AuthController
         $accessTokenSecret = Token::token(Token::SHA512);
         $newToken = Token::accessToken($login, $result['role'], $result['roots'], $accessTokenSecret);
         $csrfSecret = Token::token(Token::SHA512);
+        $driveToken = Token::token(Token::MD5);
         RD::setValue($profileId, json_encode([
             'csrf' => Token::csrf($csrfSecret),
             'accessToken' => $newToken,
             'csrfSecret' => $csrfSecret,
-            'accessTokenSecret' => $accessTokenSecret
+            'accessTokenSecret' => $accessTokenSecret,
+            'driveToken' => $driveToken
         ]), Settings::profilePrefix);
 
         setcookie('profileId', $profileId, time() + (3600), '/', '', false, true);
@@ -492,6 +496,16 @@ class AuthController
         return [
             'status' => true,
             'user' => $user
+        ];
+    }
+
+    public static function getDriveToken () {
+        $driveToken = SessionData::$userProfile['driveToken'];
+        
+        return [
+            'status' => true,
+            'driveToken' => $driveToken,
+            'profileId' => SessionData::$profileId
         ];
     }
 }
