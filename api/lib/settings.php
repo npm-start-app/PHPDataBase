@@ -4,7 +4,7 @@ namespace WBlib;
 class Settings {
     // |-- SSL --|
 
-    const SSL = false;
+    const SSL = true;
 
     // |-- Errors --|
     const httpErrors = [
