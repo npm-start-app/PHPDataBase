@@ -7,6 +7,15 @@ use WBlib\Route;
 
 // 'WBlib\Route::useRedis' -- Open Redis Connection
 
+if (array_key_exists('1', explode('/', $_SERVER['REQUEST_URI']))) {
+    if (explode('/', $_SERVER['REQUEST_URI'])[1] === 'static') {
+        header((substr(__DIR__ . '/..' . $_SERVER['REQUEST_URI'], -3) === 'css') ? "Content-Type: text/css" : "Content-Type: " . mime_content_type(__DIR__ . '/..' . $_SERVER['REQUEST_URI']));
+        echo file_get_contents(__DIR__ . '/..' . $_SERVER['REQUEST_URI']);
+
+        exit();
+    }
+}
+
 class Routes
 {
     const Home = "/";
