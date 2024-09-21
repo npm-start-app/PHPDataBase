@@ -1,4 +1,6 @@
 
+let _headers
+
 let functionsCMD = {
     do: true,
     subdo: true
@@ -37,7 +39,7 @@ let _doSubFunc = async () => {
             let _result
 
             try {
-                _result = await http[result.data.method](result.data.url, _data, result.data.domain)
+                _result = await http[result.data.method](result.data.url, _data, result.data.domain, _headers)
             } catch (error) {
             }
 
@@ -100,7 +102,7 @@ let _do = async (command) => {
             }
             if (result.response.ok) {
                 if (result.data.recall) {
-                    let _headers = {}
+                    _headers = {}
 
                     if (result.data.headers) {
                         for (const param in result.data.headers) {
