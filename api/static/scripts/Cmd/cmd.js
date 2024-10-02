@@ -191,17 +191,17 @@ let _do = async (command) => {
                                 ], () => {
                                     Cmd.canPrint = true
                                 })
+                            } else {
+                                await Cmd.print([
+                                    0, 0,
+                                    'Server>', ...(await _result.response.json()).result,
+                                    0, 0,
+                                    Cmd.user.login + '>',
+                                    1
+                                ], () => {
+                                    Cmd.canPrint = true
+                                })
                             }
-
-                            await Cmd.print([
-                                0, 0,
-                                'Server>', ...(await _result.response.json()).result,
-                                0, 0,
-                                Cmd.user.login + '>',
-                                1
-                            ], () => {
-                                Cmd.canPrint = true
-                            })
                         } else {
                             await Cmd.print([
                                 0, 0,
