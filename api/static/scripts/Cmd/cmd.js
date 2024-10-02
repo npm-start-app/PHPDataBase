@@ -163,27 +163,39 @@ let _do = async (command) => {
                         if (_result) {
                             const contentDisposition = _result.response.headers.get('Content-Disposition');
 
-                            let filename = 'unknown';
-                            if (contentDisposition) {
-                                const matches = /filename="([^"]+)"/.exec(contentDisposition);
-                                if (matches && matches[1]) {
-                                    filename = matches[1];
+                            if (contentDisposition !== null) {
+                                let filename = 'unknown';
+                                if (contentDisposition) {
+                                    const matches = /filename="([^"]+)"/.exec(contentDisposition);
+                                    if (matches && matches[1]) {
+                                        filename = matches[1];
+                                    }
                                 }
-                            }
 
-                            const blob = await _result.response.blob()
-                            const a = document.createElement('a');
-                            const url = window.URL.createObjectURL(blob);
-                            a.href = url;
-                            a.download = filename;
-                            document.body.appendChild(a);
-                            a.click();
-                            window.URL.revokeObjectURL(url);
-                            document.body.removeChild(a);
+                                const blob = await _result.response.blob()
+                                const a = document.createElement('a');
+                                const url = window.URL.createObjectURL(blob);
+                                a.href = url;
+                                a.download = filename;
+                                document.body.appendChild(a);
+                                a.click();
+                                window.URL.revokeObjectURL(url);
+                                document.body.removeChild(a);
+
+                                await Cmd.print([
+                                    0, 0,
+                                    'Server>', 'File was successfully sent',
+                                    0, 0,
+                                    Cmd.user.login + '>',
+                                    1
+                                ], () => {
+                                    Cmd.canPrint = true
+                                })
+                            }
 
                             await Cmd.print([
                                 0, 0,
-                                'Server>', 'File was successfully sent',
+                                'Server>', ...result.data.result,
                                 0, 0,
                                 Cmd.user.login + '>',
                                 1
