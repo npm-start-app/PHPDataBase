@@ -195,7 +195,7 @@ let _do = async (command) => {
 
                             await Cmd.print([
                                 0, 0,
-                                'Server>', ..._result.data.result,
+                                'Server>', ...(await _result.response.json()).result,
                                 0, 0,
                                 Cmd.user.login + '>',
                                 1
