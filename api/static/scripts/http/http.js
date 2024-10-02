@@ -8,7 +8,7 @@ class http {
     }
 
     static getDriveDomain() {
-        return 'https://drive-snowy.vercel.app/'
+        return 'http://localhost:1111/'
     }
 
     static getToken() {
@@ -32,7 +32,7 @@ class http {
         }
     }
 
-    static async post(url, data, domain = this.getDomain(), headers = null) {
+    static async post(url, data, domain = this.getDomain(), headers = null, json = true) {
         if (requests > maxHTTPrequests) {
             return new Error("Request limit")
         }
@@ -44,7 +44,7 @@ class http {
                 : ((this.isJSON(data)) ? 'application/json' : 'application/x-www-form-urlencoded')
 
             if (headers && contentType) headers['Content-Type'] = contentType
-            
+
             let response
 
             if (contentType === null) {
@@ -78,14 +78,18 @@ class http {
                 })
             }
 
-            const result = await response.json()
+            if (json) {
+                const result = await response.json()
 
-            requests--
+                requests--
 
-            return {
-                response,
-                data: result
+                return {
+                    response,
+                    data: result
+                }
             }
+
+            return { response }
         } catch (error) {
             requests--
 
@@ -93,17 +97,19 @@ class http {
         }
     }
 
-    static async get(url, data = null, domain = this.getDomain(), headers = null) {
+    static async get(url, data = null, domain = this.getDomain(), headers = null, json = true) {
         if (requests > maxHTTPrequests) {
             return new Error("Request limit")
         }
 
         requests++
 
+        let response
+
         try {
             if (headers) headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-            const response = await fetch(domain + url + ((data === null) ? '' : ('?' + data)), {
+            response = await fetch(domain + url + ((data === null) ? '' : ('?' + data)), {
                 method: "GET",
                 mode: "cors",
                 cache: "no-cache",
@@ -117,18 +123,22 @@ class http {
                 referrerPolicy: "no-referrer",
             })
 
-            const result = await response.json()
+            if (json) {
+                const result = await response.json()
 
-            requests--
+                requests--
 
-            return {
-                response,
-                data: result
+                return {
+                    response,
+                    data: result
+                }
             }
+
+            return { response }
         } catch (error) {
             requests--
 
-            return new Error('Request error')
+            return new Error(error)
         }
     }
 }
