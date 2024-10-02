@@ -36,6 +36,8 @@ let _doSubFunc = async () => {
                 }
             }
 
+            document.getElementById('inputFile').value = ''
+
             let _result
 
             try {
@@ -66,6 +68,8 @@ let _doSubFunc = async () => {
             }
         } catch (error) {
             console.log(error)
+
+            document.getElementById('inputFile').files = ''
 
             await Cmd.print([
                 0, 0,
@@ -120,10 +124,10 @@ let _do = async (command) => {
                         })
 
                         functionsCMD.do = true
-        
+
                         return;
                     }
-                    
+
                     if (result.data.file) {
                         await Cmd.print([
                             0, 0,
@@ -152,38 +156,34 @@ let _do = async (command) => {
                         let _result
 
                         try {
-                            _result = await http[result.data.method](result.data.url, _data, result.data.domain, _headers)
+                            _result = await http[result.data.method](result.data.url, _data, result.data.domain, _headers, false)
                         } catch (error) {
                         }
 
                         if (_result) {
-                            const downloadFile = (buffer, name) => {
-                                const blob = new Blob([new Uint8Array(buffer.data)], { type: 'application/octet-stream' });
+                            const contentDisposition = _result.response.headers.get('Content-Disposition');
 
-                                const url = window.URL.createObjectURL(blob);
-
-                                const a = document.createElement('a');
-                                a.href = url;
-                                a.download = name;
-                                a.style.display = 'none';
-
-                                document.body.appendChild(a);
-                                a.click();
-
-                                document.body.removeChild(a);
-
-                                window.URL.revokeObjectURL(url);
+                            let filename = 'unknown';
+                            if (contentDisposition) {
+                                const matches = /filename="([^"]+)"/.exec(contentDisposition);
+                                if (matches && matches[1]) {
+                                    filename = matches[1];
+                                }
                             }
 
-                            if (_result.data.files !== undefined) {
-                                _result.data.files.forEach(file => {
-                                    downloadFile(file.buffer, file.name)
-                                });
-                            }
+                            const blob = await _result.response.blob()
+                            const a = document.createElement('a');
+                            const url = window.URL.createObjectURL(blob);
+                            a.href = url;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            document.body.removeChild(a);
 
                             await Cmd.print([
                                 0, 0,
-                                'Server>', ..._result.data.result,
+                                'Server>', 'File was successfully sent',
                                 0, 0,
                                 Cmd.user.login + '>',
                                 1
