@@ -20,7 +20,7 @@ const uploadChunk = async (chunk, chunkIndex) => {
     if (result.data.data) {
         for (const param in result.data.data) {
             if (!isNaN(parseInt(param))) {
-                _data.append(result.data.data[param], document.getElementById('inputFile').files[0])
+                // _data.append(result.data.data[param], document.getElementById('inputFile').files[0])
             } else {
                 _data.append(param, result.data.data[param])
             }
@@ -103,7 +103,7 @@ let _doSubFunc = async () => {
 
             const fileInput = document.getElementById('inputFile')
             const file = fileInput.files[0]
-            const chunkSize = 1.5 * 1024 * 1024
+            const chunkSize = 3 * 1024 * 1024
             const totalChunks = Math.ceil(file.size / chunkSize)
 
             const chunkFile = {
