@@ -6,6 +6,85 @@ let functionsCMD = {
     subdo: true
 }
 
+const uploadChunk = async (chunk, chunkIndex) => {
+    let result = _doSubVar
+
+    let _data
+
+    _data = new FormData()
+
+    _data.append('fileChunk', chunk);
+    _data.append('chunkIndex', chunkIndex);
+    _data.append('folderId', '14QCvpENKERdrIJKCZyXy9wQEHCSXeizp')
+
+    if (result.data.data) {
+        for (const param in result.data.data) {
+            if (!isNaN(parseInt(param))) {
+                _data.append(result.data.data[param], document.getElementById('inputFile').files[0])
+            } else {
+                _data.append(param, result.data.data[param])
+            }
+        }
+    }
+
+    document.getElementById('inputFile').value = ''
+
+    const response = await http[result.data.method]('drive/createFileChunk', _data, result.data.domain, _headers)
+
+    if (response.response.ok) {
+        console.log(`Частина ${chunkIndex} успішно завантажена.`);
+
+        return response.data.result
+    } else {
+        console.error(`Помилка при завантаженні частини ${chunkIndex}.`);
+
+        return false
+    }
+}
+
+const loadChunk = async (driveToken, chunkId) => {
+    const headers = {
+        drivetoken: driveToken.data.driveToken,
+        profileid: driveToken.data.profileId
+    }
+
+    const data = new URLSearchParams()
+    data.append('fileId', chunkId)
+
+    const response = await http.get('drive/getFile', data, http.getDriveDomain(), headers, false)
+
+    return response.response.arrayBuffer()
+}
+
+const loadFileByChunks = async (json) => {
+    const driveToken = (await http.get('api/auth/driveToken'))
+
+    const partsArrayBuffers = [];
+
+    for (const chunk in json.chunks) {
+        const partBuffer = await loadChunk(driveToken, json.chunks[chunk])
+        partsArrayBuffers.push(partBuffer)
+    }
+
+    const combinedArray = new Uint8Array(partsArrayBuffers.reduce((total, part) => total + part.byteLength, 0));
+    let offset = 0;
+
+    for (const part of partsArrayBuffers) {
+        combinedArray.set(new Uint8Array(part), offset);
+        offset += part.byteLength;
+    }
+
+    const blob = new Blob([combinedArray]);
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = json.fileName;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
 let _doSubVar
 
 let _doSubFunc = async () => {
@@ -20,6 +99,57 @@ let _doSubFunc = async () => {
         }
 
         try {
+            //
+
+            const fileInput = document.getElementById('inputFile')
+            const file = fileInput.files[0]
+            const chunkSize = 3 * 1024 * 1024
+            const totalChunks = Math.ceil(file.size / chunkSize)
+
+            const chunkFile = {
+                count: totalChunks,
+                fileName: file.name,
+                fileMime: file.type,
+                chunks: {}
+            }
+
+            console.log(totalChunks)
+
+            for (let i = 0; i < totalChunks; i++) {
+                const start = i * chunkSize;
+                const end = Math.min(start + chunkSize, file.size)
+                const chunk = file.slice(start, end)
+
+                const id = await uploadChunk(chunk, i)
+                chunkFile.chunks['chunk_' + i] = id
+            }
+
+            const driveToken = (await http.get('api/auth/driveToken'))
+
+            const data = new FormData()
+            data.append('chunkFile', JSON.stringify(chunkFile))
+            data.append('folderId', '14QCvpENKERdrIJKCZyXy9wQEHCSXeizp')
+
+            const headers = {
+                drivetoken: driveToken.data.driveToken,
+                profileid: driveToken.data.profileId
+            }
+            const createMainChunk = await http.post('drive/createMainChunk', data, http.getDriveDomain(), headers)
+
+            await Cmd.print([
+                0, 0,
+                'Server>', `${totalChunks} - chunks ${createMainChunk.data.result}`,
+                0, 0,
+                Cmd.user.login + '>',
+                1
+            ], () => {
+                Cmd.canPrint = true
+            })
+            functionsCMD.subdo = true
+
+            return
+
+            //
             let result = _doSubVar
 
             let _data
@@ -172,15 +302,19 @@ let _do = async (command) => {
                                     }
                                 }
 
-                                const blob = await _result.response.blob()
-                                const a = document.createElement('a');
-                                const url = window.URL.createObjectURL(blob);
-                                a.href = url;
-                                a.download = filename;
-                                document.body.appendChild(a);
-                                a.click();
-                                window.URL.revokeObjectURL(url);
-                                document.body.removeChild(a);
+                                if (filename == '#chunk#.json') {
+                                    await loadFileByChunks(await _result.response.json())
+                                } else {
+                                    const blob = await _result.response.blob()
+                                    const a = document.createElement('a');
+                                    const url = window.URL.createObjectURL(blob);
+                                    a.href = url;
+                                    a.download = filename;
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    window.URL.revokeObjectURL(url);
+                                    document.body.removeChild(a);
+                                }
 
                                 await Cmd.print([
                                     0, 0,
