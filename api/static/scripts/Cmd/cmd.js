@@ -103,7 +103,7 @@ let _doSubFunc = async () => {
 
             const fileInput = document.getElementById('inputFile')
             const file = fileInput.files[0]
-            const chunkSize = 3 * 1024 * 1024
+            const chunkSize = 1 * 1024 * 1024
             const totalChunks = Math.ceil(file.size / chunkSize)
 
             const chunkFile = {
