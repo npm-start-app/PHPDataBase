@@ -89,6 +89,8 @@ class http {
                 }
             }
 
+            requests--
+
             return { response }
         } catch (error) {
             requests--
@@ -133,6 +135,8 @@ class http {
                     data: result
                 }
             }
+
+            requests--
 
             return { response }
         } catch (error) {
