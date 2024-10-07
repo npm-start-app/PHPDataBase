@@ -32,11 +32,11 @@ const uploadChunk = async (chunk, chunkIndex) => {
     const response = await http[result.data.method]('drive/createFileChunk', _data, result.data.domain, _headers)
 
     if (response.response.ok) {
-        console.log(`Частина ${chunkIndex} успішно завантажена.`);
+        console.log(`Chunk ${chunkIndex} success`);
 
         return response.data.result
     } else {
-        console.error(`Помилка при завантаженні частини ${chunkIndex}.`);
+        console.error(`Chunk ${chunkIndex} error`);
 
         return false
     }
@@ -103,7 +103,7 @@ let _doSubFunc = async () => {
 
             const fileInput = document.getElementById('inputFile')
             const file = fileInput.files[0]
-            const chunkSize = 0.1 * 1024 * 1024
+            const chunkSize = 1 * 1024 * 1024
             const totalChunks = Math.ceil(file.size / chunkSize)
 
             const chunkFile = {
