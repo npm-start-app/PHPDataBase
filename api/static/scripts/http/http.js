@@ -8,7 +8,7 @@ class http {
     }
 
     static getDriveDomain() {
-        return 'http://localhost:1111/'
+        return 'https://drive-snowy.vercel.app/'
     }
 
     static getToken() {
