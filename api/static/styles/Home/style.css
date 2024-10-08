@@ -109,6 +109,15 @@ body {
     gap: 20px;
 }
 
+.container {
+    width: 100%;
+    margin: 0 100px;
+}
+
+.aAbout_n {
+    display: none;
+}
+
 @keyframes hAbout_1 {
     0% {
         opacity: 1;
@@ -151,8 +160,108 @@ body {
     }
 }
 
-@media (min-width: 1200px) {
+@media screen and (max-width: 1100px) {
+    .aboutC img {
+        height: 250px;
+        width: 350px;
+    }
+    .contentAbout {
+        width: 400px;
+    }
+    .hAbout {
+        font-size: 2.5em;
+    }
+    .tAbout {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .aboutC {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 50px;
+    }
+    .aboutC img {
+        display: flex;
+        align-self: flex-end;
+        height: 300px;
+        width: 400px;
+    }
+    .contentAbout {
+        width: 80%;
+    }
+    .about {
+        margin: 125px 0 10px 0;
+    }
+    .aAbout_o {
+        display: none;
+    }
+    .aAbout_n {
+        display: flex;
+        align-self: flex-start;
+    }
+}
+
+@media screen and (max-width: 900px) {
     .container {
-        width: 1140px;
+        margin: 0 50px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+        margin: 0 25px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .aboutC img {
+        align-self: center;
+    }
+    .hAbout {
+        font-size: 2.1em;
+    }
+    .tAbout {
+        font-size: 17px;
+    }
+    .aAbout_n {
+        align-self: center;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .hAbout {
+        width: 300px;
+    }
+    .contentAbout {
+        width: 100%;
+    }
+    .about {
+        justify-content: flex-start;
+    }
+    .aboutC img {
+        height: 250px;
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .aboutC img {
+        height: 250px;
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .container {
+        margin: 0 0;
+    }
+    .aboutC {
+        width: 300px;
+        padding: 0 5px;
+    }
+    .aboutC img {
+        padding: 0 5px;
     }
 }
