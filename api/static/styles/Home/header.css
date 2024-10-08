@@ -160,3 +160,45 @@
     color: white;
     text-decoration: none;
 }
+
+.navbar_a {
+    display: none;
+    font-size: 35px;
+    transition: all 0.4s ease;
+}
+
+.navbar_a:hover {
+    color: #ffc200;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+    #navbar {
+        display: none;
+    }
+    .navbar_a {
+        display: block;
+    }
+    .navbarNav {
+        justify-content: flex-end;
+        gap: 50px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .header {
+        gap: 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .navbarNav {
+        gap: 25px;
+    }
+    .logo div {
+        display: none;
+    }
+    .logo {
+        padding: 0 5px;
+    }
+}
