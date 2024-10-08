@@ -52,6 +52,7 @@
                         <div><a href="<?php echo HtmlController::domain(); ?>">DataBase</a></div>
                     </li>
                 </ul>
+                <div class="navbar_a"><i class="fa-solid fa-bars"></i></div>
                 <div class="profile">
                     <a id="user" class="user">
                         <i class="fa-solid fa-user"></i>
@@ -73,9 +74,10 @@
                         <p id="hobby">Web Developer</p>
                     </span></div>
                 <div class="tAbout">Programs' structure is an art. Art for those, who love programming and computers. I hope that one day I will become a master of this art.</div>
-                <a href="https://nextjs-boilerplate-three-blond-44.vercel.app" class="aAbout">See my About website</a>
+                <a href="https://nextjs-boilerplate-three-blond-44.vercel.app" class="aAbout aAbout_o">See my About website</a>
             </div>
             <img src="<?php echo HtmlController::domain() ?>static/images/about_4.svg" />
+            <a href="https://nextjs-boilerplate-three-blond-44.vercel.app" class="aAbout aAbout_n">See my About website</a>
         </div>
     </div>
 
