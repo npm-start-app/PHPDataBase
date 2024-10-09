@@ -257,11 +257,16 @@ body {
     .container {
         margin: 0 0;
     }
-    .aboutC {
-        width: 300px;
-        padding: 0 5px;
-    }
     .aboutC img {
         padding: 0 5px;
+    }
+    .contentAbout {
+        align-items: center;
+    }
+    .hAbout {
+        width: 90%;
+    }
+    .tAbout {
+        width: 90%;
     }
 }
