@@ -131,7 +131,7 @@
     <rect style="mix-blend-mode:multiply" width="1131" height="406.103055" rx="0" ry="0"
         transform="translate(0 406.103055)" opacity="0.8" fill="url(#eCa0RNDLg3J52-fill)"
         stroke-width="0" />
-    <g transform="matrix(2.320589 0 0 2.320589 736.499889 649.764888)" opacity="0.7">
+    <!-- <g transform="matrix(2.320589 0 0 2.320589 736.499889 649.764888)" opacity="0.7">
         <g transform="matrix(.3 0 0 0.3-18.12243-25.905895)" mask="url(#eCa0RNDLg3J57)">
             <mask id="eCa0RNDLg3J57" mask-type="alpha" x="-150%" y="-150%" height="400%"
                 width="400%">
@@ -143,5 +143,5 @@
             </mask>
         </g>
         <g id="eCa0RNDLg3J59_tr" transform="translate(11.12,29.9) rotate(-720)"></g>
-    </g>
+    </g> -->
 </svg>
