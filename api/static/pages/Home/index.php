@@ -69,7 +69,7 @@
     <div class="about">
         <div class="container aboutC">
             <div class="contentAbout">
-                <div class="hAbout">Hello there! I'm <span>
+                <div class="hAbout">Hello there! I'm&nbsp;<span>
                         <p id="nickname">Nons8ns</p>
                         <p id="hobby">Web Developer</p>
                     </span></div>
