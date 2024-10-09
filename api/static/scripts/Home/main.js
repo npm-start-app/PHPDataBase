@@ -72,6 +72,7 @@ function clickOutsideToCloseSideHeader() {
 const sideHeader = () => {
     document.getElementById('main').removeEventListener('click', clickOutsideToCloseSideHeader)
 
+    document.getElementById('body').style.overflowY = 'hidden'
     document.getElementById('sideHeader').classList.add('sideHeader_open')
 
     setTimeout(() => {
@@ -82,6 +83,7 @@ const sideHeader = () => {
 const closeSideHeader = () => {
     document.getElementById('main').removeEventListener('click', clickOutsideToCloseSideHeader)
 
+    document.getElementById('body').style.overflowY = 'scroll'
     document.getElementById('sideHeader').classList.remove('sideHeader_open')
 }
 
