@@ -198,7 +198,8 @@
     .logo div {
         display: none;
     }
-    .logo {
-        padding: 0 5px;
+    .header {
+        justify-content: space-between;
+        padding: 20px;
     }
 }
