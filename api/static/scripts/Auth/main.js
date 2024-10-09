@@ -47,9 +47,9 @@ if (!localSettings.get("authBackgroundAnimation")) {
     setBackgroundImageAndVideo(['animationRightLeft', 'animationLeftRight', 'tans3s', 'tans4s'],
         ['animationRightLeftI', 'animationLeftRightI', 'tans3sI', 'tans4sI'])
 
-    document.getElementById("Icons").innerHTML += `<i onclick="backgroundAnimationSwitcher()" id="authBack" class="fa-solid fa-photo-film icon"></i>`
+    document.getElementById("Icons").innerHTML += `<i onclick="backgroundAnimationSwitcher()" id="authBack" class="backgroundIcon fa-solid fa-photo-film icon"></i>`
 } else {
-    document.getElementById("Icons").innerHTML += `<i onclick="backgroundAnimationSwitcher()" id="authBack" class="fa-regular fa-images icon"></i>`
+    document.getElementById("Icons").innerHTML += `<i onclick="backgroundAnimationSwitcher()" id="authBack" class="backgroundIcon fa-regular fa-images icon"></i>`
 }
 
 const backgroundAnimationSwitcher = () => {
@@ -61,12 +61,12 @@ const backgroundAnimationSwitcher = () => {
         setBackgroundImageAndVideo(['animationRightLeft', 'animationLeftRight', 'tans3s', 'tans4s'],
             ['animationRightLeftI', 'animationLeftRightI', 'tans3sI', 'tans4sI'])
 
-        document.getElementById("Icons").innerHTML += `<i onclick="backgroundAnimationSwitcher()" id="authBack" class="fa-solid fa-photo-film icon"></i>`
+        document.getElementById("Icons").innerHTML += `<i onclick="backgroundAnimationSwitcher()" id="authBack" class="backgroundIcon fa-solid fa-photo-film icon"></i>`
     } else {
         setBackgroundImageAndVideo(['animationRightLeftI', 'animationLeftRightI', 'tans3sI', 'tans4sI'],
             ['animationRightLeft', 'animationLeftRight', 'tans3s', 'tans4s'])
 
-        document.getElementById("Icons").innerHTML += `<i onclick="backgroundAnimationSwitcher()" id="authBack" class="fa-regular fa-images icon"></i>`
+        document.getElementById("Icons").innerHTML += `<i onclick="backgroundAnimationSwitcher()" id="authBack" class="backgroundIcon fa-regular fa-images icon"></i>`
     }
 }
 
