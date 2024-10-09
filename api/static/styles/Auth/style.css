@@ -15,7 +15,7 @@ body {
 }
 
 .formC {
-    width: 30%;
+    width: 400px;
     border-radius: 5px;
     box-shadow: 5px 5px 5px 0 rgba(255, 255, 255, 0.5);
     background-color: #2c49db;
@@ -122,4 +122,31 @@ body {
 
 .icon:hover {
     color: #ffc200;
+}
+
+@media screen and (max-width: 900px) {
+    .loginbackground {
+        display: none;
+    }
+    .backgroundIcon {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .formC {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .formC {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .formC {
+        width: 275px;
+    }
 }
