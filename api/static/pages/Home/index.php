@@ -35,8 +35,8 @@
     <title>DataBase</title>
 </head>
 
-<body id="body" style="overflow-y: scroll;">
-    <div id="main" class="mainContent">
+<body>
+    <div id="main" class="mainContent" style="overflow-y: scroll;">
         <div class="navbar">
             <div class="container header">
                 <a href="/" class="logo">
