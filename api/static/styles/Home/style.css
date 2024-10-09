@@ -31,6 +31,8 @@ body {
     font-size: 2.8em;
     font-weight: bold;
     letter-spacing: -1px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .hAbout span {
@@ -40,6 +42,7 @@ body {
 
 .hAbout span p {
     display: inline-block;
+    word-wrap: break-word;
 }
 
 .hAbout span p:first-child {
