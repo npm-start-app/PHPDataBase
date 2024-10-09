@@ -128,3 +128,9 @@
 .user div {
     margin-top: 15px;
 }
+
+@media screen and (max-width: 400px) {
+    .navbarNav ul li a {
+        font-size: 13px;
+    }
+}
