@@ -70,8 +70,8 @@
         <div class="container aboutC">
             <div class="contentAbout">
                 <div class="hAbout">Hello there! I'm&nbsp;<span>
-                        <p id="nickname">Nons8ns</p>
                         <p id="hobby">Web Developer</p>
+                        <p id="nickname">Nons8ns</p>
                     </span></div>
                 <div class="tAbout">Programs' structure is an art. Art for those, who love programming and computers. I hope that one day I will become a master of this art.</div>
                 <a href="https://nextjs-boilerplate-three-blond-44.vercel.app" class="aAbout aAbout_o">See my About website</a>
