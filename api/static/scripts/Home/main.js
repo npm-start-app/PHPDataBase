@@ -32,7 +32,16 @@ const checkAuth = async () => {
                 <div><a href="${http.getDomain()}auth?reg">Sign in</a></div>
                 <div><a href="${http.getDomain()}auth?reg">Sign in</a></div>
             </li>
-        `
+            `
+
+            document.getElementById('side_navbar').innerHTML += `
+            <li>
+                <div><a href="${http.getDomain()}auth?login">Log in</a></div>
+            </li>
+            <li>
+                <div><a href="${http.getDomain()}auth?reg">Sign in</a></div>
+            </li>
+            `
         }
 
         functions.auth = true
@@ -54,3 +63,30 @@ const logout = async () => {
 }
 
 checkAuth()
+
+function clickOutsideToCloseSideHeader() {
+    if (document.getElementById('sideHeader').classList.contains('sideHeader_open')) closeSideHeader()
+    else document.getElementById('main').removeEventListener('click', clickOutsideToCloseSideHeader)
+}
+
+const sideHeader = () => {
+    document.getElementById('main').removeEventListener('click', clickOutsideToCloseSideHeader)
+
+    document.getElementById('sideHeader').classList.add('sideHeader_open')
+
+    setTimeout(() => {
+        document.getElementById('main').addEventListener('click', clickOutsideToCloseSideHeader)
+    }, 300)
+}
+
+const closeSideHeader = () => {
+    document.getElementById('main').removeEventListener('click', clickOutsideToCloseSideHeader)
+
+    document.getElementById('sideHeader').classList.remove('sideHeader_open')
+}
+
+window.onresize = () => {
+    if (window.innerWidth > 1000) {
+        closeSideHeader()
+    }
+}
