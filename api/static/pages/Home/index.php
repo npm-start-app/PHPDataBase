@@ -36,7 +36,7 @@
 </head>
 
 <body>
-    <div id="main" class="mainContent" style="overflow-y: scroll;">
+    <div id="main" class="mainContent">
         <div class="navbar">
             <div class="container header">
                 <a href="/" class="logo">
